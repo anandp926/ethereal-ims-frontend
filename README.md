@@ -1,2 +1,1 @@
-# ethereal-ims-frontend
-Ethereal Incident Management System - For Distributors [Frontend]
+# Ethereal Incident Management System - For Distributors [Frontend]
