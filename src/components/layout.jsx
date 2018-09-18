@@ -51,19 +51,6 @@ class AppLayout extends Component{
                     </Menu>
                 </Sider>
                 <Layout className={this.state.contentSlide ? "content-pull-left" : "content-pull-right"}>
-                    {/* {
-                        this.state.hamburg
-                        ?
-                        <Header style={{ background: '#fff', padding: 0 }}>
-                            <Icon
-                            className="trigger"
-                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            type="menu-fold"
-                            onClick={this.toggle}
-                            />
-                        </Header>
-                        : null
-                    } */}
                     <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
                         <div className="dashboard">
                         ...
