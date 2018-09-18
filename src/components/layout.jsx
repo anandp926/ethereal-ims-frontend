@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd';
+import logo from '../logo.svg'
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -13,7 +14,9 @@ class AppLayout extends Component{
         return(
         <Layout>
             <Header className="header">
-                <div className="logo" />
+                <div>
+                    <img src={logo} className="logo" alt="logo"/>
+                </div>
             </Header>
             <Layout style={{marginTop: 64,}}>
                 <Sider 
