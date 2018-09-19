@@ -35,10 +35,58 @@
   background: #fff
 }
 
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh
+}
 
+.login-box {
+  width: 50%;
+  padding: 5%;
+  background: #fff
+}
 
-@media only screen and (max-width: 992px)  {
+.form-control {
+  padding: 1rem
+}
 
+.login-button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center
+}
+
+.login-group {
+  width: 50%;
+  padding: 1rem;
+  text-align: center
+}
+
+@media only screen and (max-width : 768px){
   
+  .login-box {
+    width: 100%
+  }
+   
+  .login-button-group {
+    flex-direction: column
+  }
+
+  .login-group {
+    width: 100%;
+  }
   
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1224px) {
+
+  .login-box {
+    width: 70%
+  }
+
 }
