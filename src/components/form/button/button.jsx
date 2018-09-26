@@ -10,6 +10,7 @@ const btn = (props) => {
             type={props.isType ? props.isType : 'default'}
             disabled={props.isDisabled ? props.isDisabled : false}
             shape={props.shape}
+            className={props.classValue}
         >
             {props.children}
         </Button>
