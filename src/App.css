@@ -35,6 +35,13 @@
   background: #fff
 }
 
+.heading {
+  text-align: center;
+  padding: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -67,6 +74,21 @@
   text-align: center
 }
 
+.issue-form-box{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.issue-form {
+  width: 40%
+}
+
+.issue-form-button {
+  padding: 1rem
+}
+
 @media only screen and (max-width : 768px){
   
   .login-box {
@@ -80,6 +102,10 @@
   .login-group {
     width: 100%;
   }
+
+  .issue-form {
+    width: 100%
+  }
   
 }
 
@@ -87,6 +113,10 @@
 
   .login-box {
     width: 70%
+  }
+
+  .issue-form {
+    width: 50%
   }
 
 }
