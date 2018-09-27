@@ -60,6 +60,23 @@
   padding: 1rem
 }
 
+label {
+  color: black;
+  font-weight: bolder
+}
+
+.inputField-outline {
+  border: 1px solid red;
+  outline: 0 none;
+  border-radius: 0.25rem
+}
+
+.star {
+  text-align: center;
+  color: red;
+  padding: 0.2rem
+}
+
 .login-button-group {
   display: flex;
   flex-direction: row;
@@ -74,11 +91,15 @@
   text-align: center
 }
 
-.issue-form-box{
+.container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column
 }
 
 .issue-form {
