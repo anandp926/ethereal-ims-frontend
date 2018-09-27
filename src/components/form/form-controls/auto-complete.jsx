@@ -6,7 +6,12 @@ import { AutoComplete } from 'antd';
 function Complete(props) {
   return (
       <FormControl>
+          <label htmlFor={props.name}>
+            {props.labelName}
+            {props.isRequired ? <span className="star">*</span> : null}
+        </label>
           <AutoComplete
+                className={props.classValue}
                 name={props.name}
                 //value={props.value}
                 onSearch={props.onInputSearch}
