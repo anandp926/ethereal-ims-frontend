@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 
 const menus = (props) => {
     return(
-        <Menu theme={props.themetype} mode={props.modetype} defaultSelectedKeys={props.selectedkey} {...props}>
+        <Menu theme={props.themetype} mode={props.modetype} defaultSelectedKeys={[props.selectedkey]} {...props}>
             {props.children}
         </Menu>
     )
