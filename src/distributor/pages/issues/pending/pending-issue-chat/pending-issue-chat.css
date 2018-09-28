@@ -1,0 +1,130 @@
+.chat-box {
+    width: 80%;
+    border: 1px solid #a8c4dd;
+    border-radius: 5px;
+    padding: 1rem
+}
+
+
+.arrow_box_right {
+	position: relative;
+	background: #fff;
+    border: 1px solid #92979b;
+    width: 80%;
+    border-radius: 5px;
+    padding: 0.7rem;
+}
+.arrow_box_right:after, .arrow_box_right:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box_right:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #fff;
+	border-width: 20px;
+	margin-top: -20px;
+}
+.arrow_box_right:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-left-color: #92979b;
+	border-width: 21px;
+	margin-top: -21px;
+}
+
+.arrow_box_left {
+	position: relative;
+	background: #fff;
+    border: 1px solid #92979b;
+    width: 80%;
+    border-radius: 5px;
+    padding: 0.7rem;
+}
+.arrow_box_left:after, .arrow_box_left:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box_left:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-right-color: #fff;
+	border-width: 20px;
+	margin-top: -20px;
+}
+.arrow_box_left:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-right-color: #92979b;
+	border-width: 21px;
+	margin-top: -21px;
+}
+
+.chat-left {
+    width: 55%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+.chat-right {
+    width: 55%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    border: 1px solid bla
+}
+
+
+.circle {
+    width: 60px;
+    height:60px;
+    border: 1px solid gray;
+    border-radius: 30px;
+    margin: 1rem;
+}
+
+@media only screen and (max-width : 768px){
+  
+    .chat-box {
+        width: 100%;
+    }
+
+    .chat-left {
+        width: 100%
+    }
+
+    .chat-right{
+        width: 100%
+    }
+    
+  }
+  
+  @media only screen and (min-width : 768px) and (max-width : 1224px) {
+  
+    .chat-box {
+        width: 90%;
+    }
+    .chat-left {
+        width: 100%
+    }
+
+    .chat-right{
+        width: 100%
+    }
+  }
