@@ -23,12 +23,15 @@
 .content-pull-right {
   margin-left: 200px;
   transition: 0.2s;
+  height: 100%;
 }
 
 .content-pull-left {
   margin-left: 0;
   transition: 0.1s;
+  height: 100%
 }
+
 
 .dashboard {
   padding: 24px;
@@ -110,6 +113,27 @@ label {
   padding: 1rem
 }
 
+.chat-left {
+  width: 55%;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  float: left;
+}
+
+.chat-right {
+  width: 55%;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  border: 1px solid bla
+}
+
 @media only screen and (max-width : 768px){
   
   .login-box {
@@ -127,6 +151,14 @@ label {
   .issue-form {
     width: 100%
   }
+
+  .chat-left {
+    width: 100%
+  }
+
+  .chat-right {
+    width: 100%
+  }
   
 }
 
@@ -138,6 +170,14 @@ label {
 
   .issue-form {
     width: 50%
+  }
+
+  .chat-left {
+    width: 100%
+  }
+
+  .chat-right {
+    width: 100%
   }
 
 }
