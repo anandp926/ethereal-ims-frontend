@@ -11,6 +11,7 @@ const btn = (props) => {
             disabled={props.isDisabled ? props.isDisabled : false}
             shape={props.shape}
             className={props.classValue}
+            onClick={props.onClick}
         >
             {props.children}
         </Button>
