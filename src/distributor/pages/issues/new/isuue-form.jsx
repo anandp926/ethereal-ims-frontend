@@ -23,6 +23,7 @@ class IssueForm extends Component {
     onFormSubmit =(e)=> {
         e.preventDefault()
         if(this.validate()){
+            this.outlineColor()
             console.log(this.state.products,this.state.productsNo,this.state.subject,this.state.message)
         }else{
             this.outlineColor()
