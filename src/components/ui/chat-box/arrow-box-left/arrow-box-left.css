@@ -1,0 +1,33 @@
+.arrow_box_left {
+	position: relative;
+	background: #fff;
+    border: 1px solid #92979b;
+    width: 80%;
+    border-radius: 5px;
+	padding: 0.7rem;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+.arrow_box_left:after, .arrow_box_left:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box_left:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-right-color: #fff;
+	border-width: 20px;
+	margin-top: -20px;
+}
+.arrow_box_left:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-right-color: #92979b;
+	border-width: 21px;
+	margin-top: -21px;
+}
