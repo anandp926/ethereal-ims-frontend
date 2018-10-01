@@ -23,13 +23,11 @@
 .content-pull-right {
   margin-left: 200px;
   transition: 0.2s;
-  height: 100%;
 }
 
 .content-pull-left {
   margin-left: 0;
   transition: 0.1s;
-  height: 100%
 }
 
 
