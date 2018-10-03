@@ -1,0 +1,23 @@
+.chat-box {
+    width: 80%;
+    border: 1px solid #a8c4dd;
+    border-radius: 5px;
+    padding: 1rem
+}
+
+
+@media only screen and (max-width : 768px){
+  
+    .chat-box {
+        width: 100%;
+    }
+    
+  }
+  
+  @media only screen and (min-width : 768px) and (max-width : 1224px) {
+  
+    .chat-box {
+        width: 90%;
+    }
+
+  }
