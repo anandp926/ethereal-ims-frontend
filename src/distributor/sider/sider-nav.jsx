@@ -15,6 +15,8 @@ const siderNav = (props) => {
                         <MenuItem menutitle="Resolved" path="/issues/resolved" icontype="issues-close"/>
                     </SubMenu>
                     <MenuItem menutitle="Inventory" path="/inventory" icontype="shopping-cart"/>
+                    <MenuItem menutitle="Shopping" path="/shopping" icontype="shopping"/>
+                    <MenuItem menutitle="FAQ" path="/faqs" icontype="read"/>
                 </Menu>
             </Sider>
         )
