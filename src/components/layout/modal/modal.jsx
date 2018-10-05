@@ -8,10 +8,10 @@ const modal = (props) => {
             visible={props.showModal}
             onOk={props.okClick}
             onCancel={props.cancelClick}
-            okText="Ok"
+            okText={props.okText ? props.okText : 'Ok'}
             cancelText="Cancel"
-            okType={props.okBType}
-            cancelType={props.cancelBType}
+            okType={props.okBType ? props.okBType : 'primary'}
+            cancelType={props.cancelBType ? props.cancelBType : 'default'}
         >
             {props.children}
         </Modal>
