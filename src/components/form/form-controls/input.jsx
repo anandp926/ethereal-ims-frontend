@@ -20,6 +20,7 @@ const inputType =(props)=> {
                 required={props.isRequired ? props.isRequired : false}
                 size='large'
                 readOnly={props.isReadonly ? props.isReadonly : false}
+                defaultValue={props.defValue}
             />
         </FormControl>
         
