@@ -1,102 +1,76 @@
-.shopping-card-content {
+.shopping-list {
     width: 100%;
+    display: -ms-flexbox; /* IE10 */
+    display: flex;     
+    -ms-flex-wrap: wrap; /* IE10 */     
+    flex-wrap: wrap;
+    padding: 0 4px
+}
+
+.shopping-item {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+    max-width: 25%;
+    padding: 0 1rem
+}
+
+.shopping-card-content {
     display: flex;
-    flex-direction: row
+    flex-direction: column
 }
 
 .shopping-card-image {
-    width: 240px;
-    height: 360px;
+    width: 100%;
+    max-width: 240px;
+    height: auto;
 }
 
 .shopping-card-img {
-    width: 33.33%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center
 }
 
 .shopping-card-detail {
-    width: 33.33%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    padding: 0.2rem
 }
 
 .shopping-card-buy {
-    width: 33.33%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start
-}
-
-.know-more {
-    cursor: pointer;
-    color: #0044cc
+    align-items: center
 }
 
 .price {
     font-weight: bold;
-    font-size: 1.9rem
 }
 
-@media only screen and (max-width : 768px) {
-    .shopping-card-content {
-        width: 100%;
-        display: flex;
-        flex-direction: column
+@media only screen and (max-width : 576px) {
+    .shopping-item {
+        -ms-flex: 100%;
+        flex: 100%;
+        max-width: 100%;
     }
+}
 
-    .shopping-card-img {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center
-    }
+@media only screen and (min-width : 576px) and (max-width : 768px) {
 
-    .shopping-card-detail {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center
-    }
-
-    .shopping-card-buy {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center
+    .shopping-item {
+        -ms-flex: 50%;
+        flex: 50%;
+        max-width: 50%;
     }
 }
 
 @media only screen and (min-width : 768px) and (max-width : 1224px) {
-    
-    .shopping-card-image {
-        width: 180px;
-        height: 300px;
-    }
-
-    .shopping-card-img {
-        width: 33.33%;
-        display: flex;
-        justify-content: center;
-        align-items: center
-    }
-    
-    .shopping-card-detail {
-        width: 33.33%;
-        display: flex;
-        flex-direction: center;
-        justify-content: center;
-    }
-    
-    .shopping-card-buy {
-        width: 33.33%;
-        display: flex;
-        justify-content: center;
-        align-items: center
+    .shopping-item {
+        -ms-flex: 33.33%;
+        flex: 33.33%;
+        max-width: 33.33%;
     }
 }
