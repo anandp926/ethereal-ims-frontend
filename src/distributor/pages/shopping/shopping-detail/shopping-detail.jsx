@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
+import { Modal } from 'antd'
 import HaloImage from '../assets/halo/halo.png'
 import './shopping-detail.css'
 import Button from '../../../../components/form/button/button'
 import InputType from '../../../../components/form/form-controls/input'
 
+function success() {
+    
+  }
+
 class ShoppingDetail extends Component {
 
     state = {
         qty: 1,
-        errMsg: ''
+        errMsg: '',
     }
 
     onConfirm = () => {
@@ -16,11 +21,19 @@ class ShoppingDetail extends Component {
             this.setState({
                 errMsg: ''
             })
+            this.success()
         }else{
             this.setState({
                 errMsg: 'quantity should be more than 0'
             })
         }
+    }
+
+    success = () => {
+        Modal.success({
+            title: 'Congratulation',
+            content: 'Your order has been placeed. :)',
+        });
     }
 
     onInputChange = (e) => {
