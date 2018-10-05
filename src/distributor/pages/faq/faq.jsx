@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Heading from '../../../components/form/heading/heading'
 import { Collapse } from 'antd';
 
 const Panel = Collapse.Panel;
@@ -15,6 +16,7 @@ class Faqs extends Component {
     render(){
         return(
             <div>
+                <Heading heading={"FAQs"}/>
                 <Collapse bordered={false} defaultActiveKey="1" accordion>
                     <Panel header="Driver" key="1">
                     <Collapse defaultActiveKey="1" accordion>
