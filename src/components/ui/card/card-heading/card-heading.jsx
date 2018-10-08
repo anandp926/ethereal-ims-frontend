@@ -3,7 +3,7 @@ import'./card-heading.css'
 
 const cardHeading = (props) => {
     return(
-        <div className="card-heading">
+        <div className={props.classValue ? props.classValue : "card-heading"}>
             <h4><b>{props.title}</b></h4> 
             <div>
                 {props.subtitle}
