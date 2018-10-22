@@ -2,7 +2,7 @@
   "name": "ethereal-ims-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anandp926.github.io/ethereal-ims-frontend",
+  "homepage": "https://anandp926.github.io",
   "dependencies": {
     "antd": "^3.9.2",
     "react": "^16.5.1",
