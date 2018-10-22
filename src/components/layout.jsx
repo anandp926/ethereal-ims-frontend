@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import Header from './header/header'
 import { Layout, Menu, Icon } from 'antd';
-import logo from '../logo.svg'
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 class AppLayout extends Component{
     
@@ -11,45 +11,50 @@ class AppLayout extends Component{
     }
 
     render(){
+        console.log(window.location.pathname)
         return(
         <Layout>
-            <Header className="header">
-                <div>
-                    <img src={logo} className="logo" alt="logo"/>
-                </div>
-            </Header>
+            <Header/>
             <Layout style={{marginTop: 64,}}>
                 <Sider 
-                    breakpoint="lg"
+                    breakpoint="md"
                     collapsedWidth="0"
                     onCollapse={(collapsed) => {this.setState({contentSlide:collapsed})}}
                     className="sider"
                 >
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
-                            <Icon type="dashboard" />
-                            <span className="nav-text">Dashboard</span>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={[window.location.pathname]}>
+                        <Menu.Item key={"/dashboard"}>
+                            <a href="/dashboard">
+                                <Icon type="dashboard" />
+                                <span className="nav-text">Dashboard</span>
+                            </a>
                         </Menu.Item>
                         <SubMenu
                         key="sub1"
                         title={<span><Icon type="exclamation-circle" /><span>Issues</span></span>}
                         >
-                            <Menu.Item key="3">
+                            <Menu.Item key="/new">
+                                <a href="/new">
                                 <Icon type="plus-circle" />
                                 <span className="nav-text">Create New</span>
+                                </a>
                             </Menu.Item>
-                            <Menu.Item key="4">
+                            <Menu.Item key="/pending">
+                                <a href="/pending">
                                 <Icon type="warning" />
                                 <span className="nav-text">Pending</span>
+                                </a>
                             </Menu.Item>
-                            <Menu.Item key="5">
+                            <Menu.Item key="/resolved">
                                 <Icon type="issues-close" />
                                 <span className="nav-text">Resolved</span>
                             </Menu.Item>
                         </SubMenu>
-                        <Menu.Item key="2">
-                        <Icon type="shopping-cart" />
-                        <span className="nav-text">Inventory</span>
+                        <Menu.Item key="/inv">
+                            <a href="/inv">
+                            <Icon type="shopping-cart" />
+                            <span className="nav-text">Inventory</span>
+                            </a>
                         </Menu.Item>
                     </Menu>
                 </Sider>
@@ -72,7 +77,7 @@ class AppLayout extends Component{
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
-                        Ant Design ©2018 Created by Ant UED
+                        Copyright © 2018. Ethereal Machines Pvt Ltd. All rights reserved.
                     </Footer>
                 </Layout>
             </Layout>

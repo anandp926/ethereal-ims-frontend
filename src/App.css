@@ -31,11 +31,6 @@
 }
 
 
-.dashboard {
-  padding: 24px;
-  background: #fff
-}
-
 .heading {
   text-align: center;
   padding: 1rem;
@@ -47,7 +42,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   min-height: 70vh
 }
 

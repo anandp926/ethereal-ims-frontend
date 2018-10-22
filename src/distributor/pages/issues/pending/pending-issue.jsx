@@ -12,7 +12,7 @@ class PendingIssue extends Component {
     render(){
         return(
             <div className="container flex-column">
-                <div className="pending-issue-list">
+                <div className="issue-list">
                     <Card>
                         <CardHeading 
                             title="v9530: Ray Mising Wing not[Pending]"
@@ -45,7 +45,7 @@ class PendingIssue extends Component {
                         />
                     </Card>
                 </div>
-                <div className="pending-issue-list">
+                <div className="issue-list">
                 <Card>
                         <CardHeading 
                             title="v9530: Ray Mising Wing not[Pending]"
