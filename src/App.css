@@ -138,6 +138,29 @@ span {
   border: 1px solid bla
 }
 
+/* loader */
+
+.page {
+  margin-top: 6.4rem;
+  grid-column: 1 / -1;
+  min-height: 60vh;
+  display: grid;
+  grid-template-columns: var(--grid-template-columns);
+  position: relative;
+  /* background-color: #fafafa; */
+}
+
+.page-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.u-text-center {
+  text-align: center;
+}
+
 @media only screen and (max-width : 768px){
   
   .login-box {
