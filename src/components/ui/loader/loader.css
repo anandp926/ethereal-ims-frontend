@@ -1,0 +1,9 @@
+
+.wait-loader {
+    padding-top: 3rem;
+    z-index: 2;
+  }
+  
+  .wait-loader span{
+    font-size: 1.4rem;
+  }
