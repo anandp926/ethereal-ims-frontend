@@ -8,7 +8,9 @@ import login from '../services/apis/login'
 import {SetToken, GetToken} from '../helpers/token'
 import * as actionType from '../store/actions/action-type';
 import { connect } from 'react-redux'
+import ErrorBox from '../components/form/error-box/error-box'
 import {Redirect} from 'react-router-dom'
+import Loader from '../components/ui/loader/loader'
 const { Content, Footer } = Layout;
 
 class Login extends Component{
@@ -16,7 +18,9 @@ class Login extends Component{
     state = {
         userName: '',
         password: '',
-        url : ''
+        url : '',
+        errorMsg: '',
+        showLoader: false
     }
 
     componentDidMount(){
@@ -27,13 +31,14 @@ class Login extends Component{
 
     callback = (data) => {
         if(data.status === 200) {
+            this.setState({showLoader: false, errorMsg: ''});
             SetToken(data.data.token, 5);
             this.props.basic(data.data.user);
             if(data.data.user.firstTime === false){
                 this.props.history.push('/user/updatePassword');
-            }else if(data.data.user.approved === false && data.data.user.firstTime === true){
+            }else if((data.data.user.approval === 'pending' || data.data.user.approval === null) && data.data.user.firstTime === true){
                 this.props.history.push('/user/profile');
-            }else if(data.data.user.firstTime && data.data.user.approved){
+            }else if(data.data.user.firstTime && data.data.user.approval === 'approved'){
                 this.props.login();
                 if(!this.state.url || this.state.url === '/'){
                     this.props.history.push('/dashboard');
@@ -41,21 +46,26 @@ class Login extends Component{
                     this.props.history.push(this.state.url);
                 }
             }
+        }else if(data.response){
+            this.setState({showLoader: false});
+            this.setState({errorMsg: "Please enter valid username or password"})
         }else {
-            console.log(data.response)
-        } 
+            this.setState({showLoader: false});
+            this.setState({errorMsg: "Something went wrong. Please try again latter!"})
+        }
     }
 
     onFormSubmit =(e)=> {
         e.preventDefault()
+        this.setState({showLoader: true, errorMsg:''});
         const data = {
             email: this.state.userName,
             password: this.state.password
         }; 
-        if(data){
+        if(this.state.userName && this.state.password){
         login(this.callback, data);
         }else{
-            alert('no data')
+            this.setState({errorMsg: "Please enter valid username or password"})
         }
     }
 
@@ -66,13 +76,13 @@ class Login extends Component{
     }
 
     render(){
-        if(this.props.isLoggedIn){
+        if(this.props.isLoggedIn && this.props.isApproved === 'approved'){
             return <Redirect to='/dashboard' />
         }else {
             return(
                 <Layout>
                     <Header/>
-                    <Layout style={{marginTop: 64}} >
+                    <Layout style={{marginTop: 64, height: '100vh'}} >
                         <Content className="login">
                             <div className="login-box">
                                 <Form onSubmitHandler={this.onFormSubmit}>
@@ -96,6 +106,8 @@ class Login extends Component{
                                         isRequired={true}
                                         labelName="Password"
                                     />
+                                    { this.state.errorMsg ? <ErrorBox errorMsgs={this.state.errorMsg} /> : null}
+                                    { this.state.showLoader ? <Loader>Logging...</Loader> : null }
                                     <div className="login-button-group">
                                         <div className="login-group">
                                             <Button isType='primary' htmlTypes='submit' isBlock={true}>LOGIN</Button>
@@ -107,7 +119,7 @@ class Login extends Component{
                                 </Form>
                             </div>
                         </Content>
-                        <Footer style={{ textAlign: 'center' }}>
+                        <Footer style={{ textAlign: 'center',marginBottom: 64 }}>
                             Copyright © 2018. Ethereal Machines Pvt Ltd. All rights reserved.
                         </Footer>
                     </Layout>
@@ -121,6 +133,7 @@ class Login extends Component{
 const mapStateToProps = (state) => {
     return{
         isLoggedIn: state.Login.isLogedIn,
+        isApproved: state.Basic.basic.approval,
         redirectURL: state.Login.redirect
     }
 }
