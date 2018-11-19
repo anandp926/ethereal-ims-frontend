@@ -1,8 +1,7 @@
 import axios from '../axios/axios';
-import headers from '../axios/headers'
 
-const refreshToken = (callback, data) => {
-    axios.post('/user/refresh/token', data, {headers:{...headers}})
+const refreshToken = (callback, data, token) => {
+    axios.post('/user/refresh/token', data, {headers:{"x-auth": token}})
         .then((res) => {
             callback(res)
         }).catch((err) => callback(err));
