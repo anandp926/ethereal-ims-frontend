@@ -7,6 +7,12 @@ const reducer = (state= {basic: []}, action) => {
                 ...state,
                 basic: action.value
             }
+        case actionType.FIRST_TIME: {
+            return {
+                ...state,
+                basic: action.value
+            }
+        }
         default:
             return state
     }
