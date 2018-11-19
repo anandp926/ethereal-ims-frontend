@@ -7,7 +7,7 @@ import Loadable from 'react-loadable'
 import {GetToken} from '../helpers/token'
 import Login from '../login/login'
 import LoginChecker from '../login/login-checker'
-import loader from './loader.gif'
+import loader from '../assets/loader.gif'
 import UpdatePassword from '../update-password/update-password'
 import CreateProfile from '../create-profile/create-profile'
 
@@ -101,7 +101,7 @@ class MainRouting extends Component {
                         : <Redirect to="/" />
                     )} />
                     <Route path="/user/profile"  render={(match) => (
-                        this.props.isFirst && GetToken() && !this.props.isApproved
+                        this.props.isFirst && GetToken() && (this.props.isApproved === null || this.props.isApproved === 'pending')
                         ? <CreateProfile/>
                         : <Redirect to="/" />
                     )} />
@@ -136,7 +136,7 @@ class MainRouting extends Component {
 function mapStateToProps(state) {
     return {
       isFirst: state.Basic.basic.firstTime,
-      isApproved: state.Basic.basic.approved,
+      isApproved: state.Basic.basic.approval,
       userType: state.Basic.basic.group
     }
   }
