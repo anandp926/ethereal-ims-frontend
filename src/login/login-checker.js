@@ -27,14 +27,16 @@ class LoginChecker extends Component {
     componentDidMount() {
 
         const {currentURL, isLoggedIn, history, setRedirectUrl } = this.props;
+        const token = GetToken();
+
         if (!isLoggedIn) {
           // set the current url/path for future redirection (we use a Redux action)
           // then redirect (we use a React Router method)
           setRedirectUrl(currentURL);
           history.push('/');
-        }else if(isLoggedIn){
+        }else if(isLoggedIn && token){
           setRedirectUrl(currentURL);
-          refreshToken(this.callback, {token:GetToken()});
+          refreshToken(this.callback, {token:token}, token);
         }
     }
 
@@ -46,7 +48,7 @@ class LoginChecker extends Component {
     
     render() {
       const { isLoggedIn, isFirst, isApproved} = this.props;
-      if (isLoggedIn && isFirst, isApproved) {
+      if (isLoggedIn && isFirst, isApproved === 'approved') {
         return (
           <Layout>
             <Header/>
@@ -58,7 +60,11 @@ class LoginChecker extends Component {
             </Layouts>
           </Layout>
         )
-      } else {
+      } else if(!this.props.isFirst){
+        return <Redirect to="/user/updatePassword" />
+      } else if(this.props.isApproved === 'pending' || this.props.isApproved === null){
+        return <Redirect to="user/profile" />
+      }else {
         return null
       }
     }
@@ -73,7 +79,7 @@ class LoginChecker extends Component {
         isLoggedIn: state.Login.isLogedIn,
         userType: state.Basic.basic.group,
         isFirst: state.Basic.basic.firstTime,
-        isApproved: state.Basic.basic.approved,
+        isApproved: state.Basic.basic.approval,
         currentURL: ownProps.location.pathname
       }
     }
