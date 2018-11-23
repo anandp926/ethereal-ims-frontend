@@ -6,7 +6,7 @@ import './error-box.css';
     return (
         <FormControl>
             <div className="error-box">
-                Warning:&nbsp;{props.errorMsgs}
+                Warning:&nbsp;{props.errorMsgs}&nbsp;{props.children}
             </div>
         </FormControl>
         
