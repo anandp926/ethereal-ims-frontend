@@ -12,6 +12,7 @@ const modal = (props) => {
             cancelText="Cancel"
             okType={props.okBType ? props.okBType : 'primary'}
             cancelType={props.cancelBType ? props.cancelBType : 'default'}
+            footer={props.footer}
         >
             {props.children}
         </Modal>
