@@ -82,6 +82,11 @@ const AdminDashboard = Loadable({
     loading: Loading
 })
 
+const CreateUser = Loadable({
+    loader: () => import('../admin/pages/users/create-user/create-user'),
+    loading: Loading
+})
+
 class MainRouting extends Component {
     history = createHashHistory({
         basename: "", // The base URL of the app (see below)
@@ -124,6 +129,7 @@ class MainRouting extends Component {
                             :
                             <Switch>
                                 <Route path="/dashboard" exact component={AdminDashboard}/>
+                                <Route path="/users/new" exact component={CreateUser} />
                             </Switch>
                         }
                     </LoginChecker>
