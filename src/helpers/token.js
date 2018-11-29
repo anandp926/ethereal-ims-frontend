@@ -27,3 +27,11 @@ export const GetToken = function getToken() {
     if(HDR && PLD && SV)
     return `${HDR}.${PLD}.${SV}`;
 };
+
+export const DeleteToken = function createCookie() {
+    var expires="Thu, 01 Jan 1970 00:00:00 GMT";
+    
+    document.cookie = 'HDR'+"=;"+expires+"; path=/";
+    document.cookie = 'PLD'+"=;"+expires+"; path=/";
+    document.cookie = 'SV'+"=;"+expires+"; path=/";
+};
