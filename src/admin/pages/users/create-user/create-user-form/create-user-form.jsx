@@ -21,19 +21,42 @@ class CreateUserForm extends Component {
         phone: '',
         companyIdWarn: false,
         groupWarn: false,
-        errorMsg: ''
+        errorMsg: '',
+        showLoader: false,
+    }
+
+    reset = () => {
+        this.setState({
+            name: '',
+            email: '',
+            companyId: '',
+            group: '',
+            phone: '',
+            errorMsg: '',
+            showLoader: false,
+        })
     }
 
     callback = (data) => {
         if(data.status === 200){
+            this.reset();
             console.log(data.data)
         }else if(data.response){
-            console.log(data.response)
+            this.setState({
+                errorMsg: data.response.data._message,
+                showLoader: false,
+            });
+        }else {
+            this.setState({
+                errorMsg: 'Something went wrong. Please try again later &#x2639;',
+                showLoader: false,
+            });
         }
     }
 
     onFormSubmit = (e) => {
         const token = GetToken();
+        this.setState({showLoader: true, errorMsg:''});
         e.preventDefault();
         const { name, email, companyId, group, phone } = this.state;
         if(this.validate()){
@@ -84,6 +107,7 @@ class CreateUserForm extends Component {
     }
 
     render(){
+        const { companies } = this.props;
         return(
             <Form onSubmitHandler={this.onFormSubmit}>
                 <Dropdown
@@ -96,8 +120,11 @@ class CreateUserForm extends Component {
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     classValue={this.state.companyIdWarn ? 'inputField-outline' : null}
                 >
-                    <Option value="1">Ethereal</Option>
-                    <Option value="2">Machines</Option>
+                    {
+                        companies.map((company) => (
+                            <Option value={company._id} key={company._id}>{company.name}</Option>
+                        ))
+                    }
                 </Dropdown>
                 <ErrorBox errorMsgs="If company is not listed above then create company">
                     <Button isSize='small' isType='danger' onClick={() => this.props.openModal(true)}>Click</Button>
@@ -143,6 +170,7 @@ class CreateUserForm extends Component {
                     isRequired={true}
                 />
                 { this.state.errorMsg ? <ErrorBox errorMsgs={this.state.errorMsg} /> : null}
+                { this.state.showLoader ? <Loader>Creating...</Loader> : null }
                 <div className="issue-form-button" >
                     <Button isType='primary' htmlTypes='submit' isBlock={true}>Submit</Button>
                 </div>
