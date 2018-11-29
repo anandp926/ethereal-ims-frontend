@@ -1,33 +1,52 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import Form from '../../../../../components/form/form'
 import InputType from '../../../../../components/form/form-controls/input'
 import Button from '../../../../../components/form/button/button'
 import ErrorBox from '../../../../../components/form/error-box/error-box'
 import Loader from '../../../../../components/ui/loader/loader'
+//api
 import createCompany from '../../../../../services/apis/create-company'
+import * as actionType from '../../../../../store/actions/action-type'
 import {GetToken} from '../../../../../helpers/token'
+
 
 class CreateCompany extends Component {
 
     state = {
         name: '',
         location: '',
-        errorMsg: ''
+        nameWarn: false,
+        locationWarn: false,
+        errorMsg: '',
+        showLoader: false
     }
 
     callback = (data) => {
         if(data.status === 200){
-            console.log(data.data)
+            this.reset();
+            this.props.addCompany(data.data);
+            this.props.cancelClick(false); // close modal
         }else if(data.response){
-            console.log(data.response)
+            this.setState({
+                errorMsg: 'Something went wrong. Please try again later &#x2639;',
+                showLoader: false,
+            });
+        }else{
+            this.setState({
+                errorMsg: 'Something went wrong. Please try again later &#x2639;',
+                showLoader: false,
+            });
         }
     }
 
     onFormSubmit = (e) => {
         const token = GetToken();
         e.preventDefault();
+        this.setState({showLoader: true, errorMsg:''});
         const { name, location} = this.state;
         if(this.validate()){
+            this.outlineColor();
             const data = {
                 name: name,
                 location: location
@@ -35,6 +54,9 @@ class CreateCompany extends Component {
             if(data && token){
                 createCompany(this.callback, data, token);
             }
+        }else {
+            this.outlineColor();
+            this.setState({errorMsg: 'Please fill all the required field'});
         }
     }
 
@@ -46,13 +68,26 @@ class CreateCompany extends Component {
         this.setState({
             name: '',
             location: '',
-            errorMsg: ''
+            errorMsg: '',
+            showLoader: false
         })
+    }
+
+    outlineColor = () => {
+        if(!this.state.name.trim()){
+            this.setState({nameWarn:true})
+        }else{
+            this.setState({nameWarn:false})
+        }if(!this.state.location.trim()){
+            this.setState({locationWarn:true})
+        }else{
+            this.setState({locationWarn:false})
+        }
     }
 
     validate = () => {
         const { name, location } = this.state;
-        return name !== '' && location !== '';
+        return name.trim() !== '' && location.trim() !== '';
     }
 
     render(){
@@ -66,6 +101,7 @@ class CreateCompany extends Component {
                     placeholder="Enter Company Name"
                     onInputChange={this.onInputChange}
                     isRequired={true}
+                    classValue={this.state.nameWarn ? 'inputField-outline' : null}
                 />
                 <InputType 
                     type="text"
@@ -75,8 +111,10 @@ class CreateCompany extends Component {
                     placeholder="Enter Company Location"
                     onInputChange={this.onInputChange}
                     isRequired={true}
+                    classValue={this.state.locationWarn ? 'inputField-outline' : null}
                 />
                 { this.state.errorMsg ? <ErrorBox errorMsgs={this.state.errorMsg} /> : null}
+                { this.state.showLoader ? <Loader>Creating...</Loader> : null }
                 <div className="issue-form-button" >
                     <Button isType='primary' htmlTypes='submit' isBlock={true}>Submit</Button>
                 </div>
@@ -85,4 +123,15 @@ class CreateCompany extends Component {
     }
 }
 
-export default CreateCompany
+function mapDispatchToProps(dispatch) {
+    return{
+        addCompany: (data) => {
+            dispatch({
+                type: actionType.ADD_COMPANY,
+                value: data
+            })
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CreateCompany)
