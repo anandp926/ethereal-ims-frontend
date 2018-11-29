@@ -1,0 +1,7 @@
+.error-box {
+    display: inline-block;
+    list-style: none;
+    text-align: left;
+    color: red;
+    font-size: 0.8rem;
+}
