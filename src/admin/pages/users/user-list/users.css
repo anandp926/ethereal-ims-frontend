@@ -1,0 +1,13 @@
+.users-container {
+  width: 100%;
+}
+
+.table-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    margin-bottom: 20px;
+    background: white;
+}
