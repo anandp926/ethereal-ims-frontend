@@ -83,16 +83,10 @@ const SiderNav = (props) => {
                             <span className="nav-text">Create New</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="/users/pending">
-                            <Link to="/users/pending">
-                            <Icon type="warning" />
-                            <span className="nav-text">Pending User</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="/users/approved">
-                            <Link to="/users/approved">
-                            <Icon type="check" />
-                            <span className="nav-text">Approved User</span>
+                        <Menu.Item key="/users/users-list">
+                            <Link to="/users/users-list">
+                            <Icon type="team" />
+                            <span className="nav-text">User List</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>
