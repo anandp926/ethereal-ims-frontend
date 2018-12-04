@@ -1,6 +1,6 @@
 import * as actionType from "../actions/action-type";
 
-const reducer = (state= {users: []}, action) => {
+const reducer = (state= {users: [], profile: []}, action) => {
     switch(action.type){
         case actionType.USERS:
             return {
@@ -13,6 +13,11 @@ const reducer = (state= {users: []}, action) => {
                 users: [
                     ...state.users.filter((user) => user._id !== action.value._id).concat([action.value])
                 ]
+            }
+        case actionType.USER_PROFILE:
+            return {
+                ...state,
+                profile: action.value
             }
         default:
             return state
