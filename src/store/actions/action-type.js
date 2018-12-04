@@ -5,4 +5,5 @@ export const FIRST_TIME = 'FIRST_TIME';
 export const COMPANY = 'COMPANY';
 export const ADD_COMPANY = 'ADD_COMPANY'
 export const USERS = 'USERS';
-export const ADD_USER = 'ADD_USER'
+export const ADD_USER = 'ADD_USER';
+export const USER_PROFILE = 'USER_PROFILE'
