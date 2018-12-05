@@ -18,15 +18,9 @@ class Login extends Component{
     state = {
         userName: '',
         password: '',
-        url : '',
+        url : this.props.redirectURL,
         errorMsg: '',
         showLoader: false
-    }
-
-    componentDidMount(){
-        this.setState({
-            url: this.props.redirectURL
-        });
     }
 
     callback = (data) => {
@@ -77,7 +71,7 @@ class Login extends Component{
 
     render(){
         if(this.props.isLoggedIn && this.props.isApproved === 'approved'){
-            return <Redirect to='/dashboard' />
+            return <Redirect to={this.state.url} />
         }else {
             return(
                 <Layout>
