@@ -21,7 +21,7 @@ const newUsers = (props) => {
         key: 'action',
         render: (text, record) => (
             <span>
-                <a onClick={() => props.openDrawer(true, record._id)}>View</a>
+                <a onClick={() => props.openDrawer(record._id)}>View</a>
             </span>
         ),
     }];
