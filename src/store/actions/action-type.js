@@ -7,3 +7,4 @@ export const ADD_COMPANY = 'ADD_COMPANY'
 export const USERS = 'USERS';
 export const ADD_USER = 'ADD_USER';
 export const USER_PROFILE = 'USER_PROFILE'
+export const APPROVE_USER = 'APPROVE_USER'
