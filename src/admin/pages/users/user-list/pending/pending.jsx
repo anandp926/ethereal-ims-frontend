@@ -21,9 +21,9 @@ const newUsers = (props) => {
         key: 'action',
         render: (text, record) => (
             <span>
-                <a href="javascript:;">Approve</a>
+                <a onClick={() => props.approveUser(record._id)}>Approve</a>
                 <Divider type="vertical" />
-                <a onClick={() => props.openDrawer(true, record._id)}>View</a>
+                <a onClick={() => props.openDrawer(record._id)}>View</a>
             </span>
         ),
     }];
