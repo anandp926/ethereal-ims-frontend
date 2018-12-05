@@ -6,7 +6,7 @@ import * as actionType from '../store/actions/action-type'
 import Header from '../components/header/header'
 import Layouts from '../components/layout/layout'
 import ContentLayout from '../components/layout/content-layout'
-import Sider from '../distributor/sider/sider-nav'
+import Sider from '../side-nav/sider-nav'
 import refreshToken from '../services/apis/refresh-token'
 import {GetToken, SetToken} from '../helpers/token'
 
@@ -53,7 +53,7 @@ class LoginChecker extends Component {
           <Layout>
             <Header/>
             <Layouts>
-              <Sider content_slider={this.contentSlider}/>
+              <Sider content_slider={this.contentSlider} roleType={this.props.userType}/>
               <ContentLayout contentslide={this.state.contentSlide}>
                 {this.props.children}
               </ContentLayout>
