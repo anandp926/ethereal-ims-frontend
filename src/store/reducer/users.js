@@ -14,6 +14,18 @@ const reducer = (state= {users: [], profile: []}, action) => {
                     ...state.users.filter((user) => user._id !== action.value._id).concat([action.value])
                 ]
             }
+        case actionType.APPROVE_USER:
+            return Object.assign({}, state, {
+                users: state.users.map((user) => {
+                    if(user._id !== action.value._id){
+                        return user
+                    }
+
+                    return Object.assign({}, user, {
+                        approval: action.value.approval
+                    })
+                })
+            })
         case actionType.USER_PROFILE:
             return {
                 ...state,
