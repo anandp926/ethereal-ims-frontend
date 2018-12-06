@@ -79,7 +79,7 @@ class Users extends Component {
                 <Drawer
                     width={640}
                     placement="right"
-                    maskClosable={true}
+                    maskClosable={false}
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
