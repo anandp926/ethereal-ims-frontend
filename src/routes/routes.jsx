@@ -40,25 +40,20 @@ const UserPendingIssues = Loadable({
     loading: Loading
 });
 
-const UserPendingIssueChat = Loadable({
-    loader: () => import('../distributor/pages/issues/pending/pending-issue-chat/pending-issue-chat'),
-    loading: Loading
-});
+// const UserPendingIssueChat = Loadable({
+//     loader: () => import('../distributor/pages/issues/pending/pending-issue-chat/pending-issue-chat'),
+//     loading: Loading
+// });
 
-const UserResolvedIssue = Loadable({
-    loader: () => import('../distributor/pages/issues/resolved/resolved-issue'),
-    loading: Loading
-});
+// const UserResolvedIssue = Loadable({
+//     loader: () => import('../distributor/pages/issues/resolved/resolved-issue'),
+//     loading: Loading
+// });
 
-const UserResolvedIssueChat = Loadable({
-    loader: () => import('../distributor/pages/issues/resolved/resolved-issue-chat/resolved-issue-chat'),
-    loading: Loading
-});
-
-const UserInventory= Loadable({
-    loader: () => import('../distributor/pages/inventory/inventory'),
-    loading: Loading
-});
+// const UserResolvedIssueChat = Loadable({
+//     loader: () => import('../distributor/pages/issues/resolved/resolved-issue-chat/resolved-issue-chat'),
+//     loading: Loading
+// });
 
 const UserShopping = Loadable({
     loader: () => import('../distributor/pages/shopping/shopping'),
@@ -122,10 +117,9 @@ class MainRouting extends Component {
                             <Switch>
                                 <Route path="/issues/new" exact component={UserAddNew} />
                                 <Route path="/issues/pending" exact component={UserPendingIssues} />
-                                <Route path="/issues/pending/:id" exact component={UserPendingIssueChat} />
+                                {/* <Route path="/issues/pending/:id" exact component={UserPendingIssueChat} />
                                 <Route path="/issues/resolved" exact component={UserResolvedIssue} />
-                                <Route path="/issues/resolved/:id" exact component={UserResolvedIssueChat} />
-                                <Route path="/inventory" exact component={UserInventory} />
+                                <Route path="/issues/resolved/:id" exact component={UserResolvedIssueChat} /> */}
                                 <Route path="/shopping" exact component={UserShopping} />
                                 <Route path="/shopping/details/:id" component={UserShoppingDetail} />
                                 <Route path="/faqs" exact component={UserFaqs} />
