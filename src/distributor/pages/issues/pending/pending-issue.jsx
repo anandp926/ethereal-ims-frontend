@@ -24,11 +24,11 @@ class PendingIssue extends Component {
                                             Delete
                                         </Button>
                                     </span>
-                                    <span>
+                                    {/* <span>
                                         <Button isType='default' htmlTypes='submit' isSize="small" classValue="chip">
                                             <Link to="pending/1">More</Link>
                                         </Button>
-                                    </span>
+                                    </span> */}
                                 </div>
                             }
                         />
@@ -57,11 +57,11 @@ class PendingIssue extends Component {
                                             Delete
                                         </Button>
                                     </span>
-                                    <span>
+                                    {/* <span>
                                         <Button isType='default' htmlTypes='submit' isSize="small" classValue="chip">
                                             <Link to="pending/2">More</Link>
                                         </Button>
-                                    </span>
+                                    </span> */}
                                 </div>
                             }
                         />
