@@ -22,8 +22,7 @@ class Shopping extends Component {
                                 <img src={HaloImage} alt="halo" className="shopping-card-image"/>
                             </div>
                             <div className="shopping-card-detail">
-                                <h4>Halo</h4>
-                                <h4 className="price">&#8377; 14,99,999</h4>
+                                <h3><b>Halo</b></h3>
                             </div>
                             <div className="shopping-card-buy">
                                 <Link to="/shopping/details/1">
@@ -40,8 +39,7 @@ class Shopping extends Component {
                                 <img src={RayImage} alt="ray" className="shopping-card-image"/>
                             </div>
                             <div className="shopping-card-detail">
-                                <h4>Ray</h4>
-                                <h4 className="price">&#8377; 14,99,999</h4>
+                                <h3><b>Ray</b></h3>
                             </div>
                             <div className="shopping-card-buy">
                                 <Link to="/shopping/details/2">
@@ -58,8 +56,7 @@ class Shopping extends Component {
                                 <img src={PentagramImage} alt="pentagram" className="shopping-card-image"/>
                             </div>
                             <div className="shopping-card-detail">
-                                <h4>Pentagram</h4>
-                                <h4 className="price">&#8377; 14,99,999</h4>
+                                <h3><b>Pentagram</b></h3>
                             </div>
                             <div className="shopping-card-buy">
                                 <Link to="/shopping/details/3">
