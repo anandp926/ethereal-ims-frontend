@@ -32,7 +32,7 @@ class ShoppingDetail extends Component {
     success = () => {
         Modal.success({
             title: 'Congratulation',
-            content: 'Your order has been placeed. :)',
+            content: 'Your order has been placed. :)',
         });
     }
 
@@ -57,7 +57,6 @@ class ShoppingDetail extends Component {
                     <div className="shopping-details-desc">
                         <h1>Ethereal Halo</h1>
                         <h5>A smart dual extruder printer for your everyday 3D printing needs!</h5>
-                        <h2 className="price">&#8377; 14,99,999</h2>
                     </div>
                     <div className="shopping-detail-buy">
                         <Button isType="primary" isBlock={true} classValue="confirm-btn" onClick={this.onConfirm}>Confirm</Button>
