@@ -5,6 +5,11 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 const SiderNav = (props) => {
+    // For open submenu when active
+    var currentPath = props.location.pathname;
+    var subPath = currentPath.split('/');
+    var subKey = {'issues': 'sub1', 'resources': 'sub2'};
+    
     if( props.roleType === 'user'){
         return(
             <Sider 
@@ -13,7 +18,7 @@ const SiderNav = (props) => {
                 onCollapse={(collapsed) => {props.content_slider(collapsed)}}
                 className="sider"
             >
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.location.pathname]}>
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.location.pathname]} defaultOpenKeys={[subKey[subPath[1]]]}>
                     <Menu.Item key={"/dashboard"}>
                         <Link to="/dashboard">
                             <Icon type="dashboard" />
@@ -36,10 +41,33 @@ const SiderNav = (props) => {
                             <span className="nav-text">Pending</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="/issues/resolved">
-                            <Link to="/issues/resolved">
-                            <Icon type="issues-close" />
-                            <span className="nav-text">Resolved</span>
+                    </SubMenu>
+                    <SubMenu
+                    key='sub2'
+                    title={<span><Icon type="folder" /><span>Resources</span></span>}
+                    >
+                        <Menu.Item key="/resources/certificate">
+                            <Link to="/resources/certificate">
+                            <Icon type="safety-certificate" />
+                            <span className="nav-text">Certificate</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="/resources/aggrement">
+                            <Link to="/resources/aggrement">
+                            <Icon type="file-protect" />
+                            <span className="nav-text">Aggrement</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="/resources/videos">
+                            <Link to="/resources/videos">
+                            <Icon type="video-camera" />
+                            <span className="nav-text">Videos</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="/resources/manuals">
+                            <Link to="/resources/manuals">
+                            <Icon type="book" />
+                            <span className="nav-text">Manuals</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>
