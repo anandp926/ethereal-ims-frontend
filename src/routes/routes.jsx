@@ -55,6 +55,11 @@ const UserPendingIssues = Loadable({
 //     loading: Loading
 // });
 
+const Videos = Loadable({
+    loader: () => import('../distributor/pages/resources/videos/videos'),
+    loading: Loading
+})
+
 const UserShopping = Loadable({
     loader: () => import('../distributor/pages/shopping/shopping'),
     loading: Loading
@@ -120,6 +125,7 @@ class MainRouting extends Component {
                                 {/* <Route path="/issues/pending/:id" exact component={UserPendingIssueChat} />
                                 <Route path="/issues/resolved" exact component={UserResolvedIssue} />
                                 <Route path="/issues/resolved/:id" exact component={UserResolvedIssueChat} /> */}
+                                <Route path="/resources/videos" exact component={Videos} />
                                 <Route path="/shopping" exact component={UserShopping} />
                                 <Route path="/shopping/details/:id" component={UserShoppingDetail} />
                                 <Route path="/faqs" exact component={UserFaqs} />
