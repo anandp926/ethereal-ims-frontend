@@ -1,0 +1,43 @@
+.video-list {
+    width: 60%;
+}
+
+.videoCard {
+    margin-bottom: 10%
+}
+/* 
+.videoHeading {
+    
+} */
+
+.videoDescription {
+    text-align: justify
+}
+
+.videoArea {
+    padding-bottom:56.27%;
+    position:relative; 
+    height:0;
+}
+
+.videoFrame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width : 768px){
+  
+    .video-list {
+        width: 100%;
+    }
+    
+  }
+  
+  @media only screen and (min-width : 768px) and (max-width : 1224px) {
+  
+    .video-list {
+        width: 80%;
+    }
+
+  }
