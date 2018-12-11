@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Layout } from 'antd'
 import Header from '../components/header/header';
+import Heading from '../components/form/heading/heading'
 import InputType from '../components/form/form-controls/input'
 import Button from '../components/form/button/button'
 import Form from '../components/form/form'
@@ -70,7 +71,7 @@ class Login extends Component{
     }
 
     render(){
-        if(this.props.isLoggedIn && this.props.isApproved === 'approved'){
+        if(this.props.isLoggedIn && this.props.isApproved === 'approved' && GetToken()){
             return <Redirect to={this.state.url} />
         }else {
             return(
@@ -79,6 +80,7 @@ class Login extends Component{
                     <Layout style={{marginTop: 64, height: '100vh'}} >
                         <Content className="login">
                             <div className="login-box">
+                                <Heading heading={<b>Sign In</b>}/>
                                 <Form onSubmitHandler={this.onFormSubmit}>
                                     <InputType 
                                         type="text"
