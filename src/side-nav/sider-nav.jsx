@@ -83,6 +83,10 @@ const SiderNav = (props) => {
                         <span className="nav-text">FAQ</span>
                         </Link>
                     </Menu.Item>
+                    <Menu.Item key={"/logout"} onClick={props.logout()}>
+                        <Icon type="logout" />
+                        <span className="nav-text">Logout</span>
+                    </Menu.Item>
                 </Menu>
             </Sider>
         )
@@ -118,6 +122,10 @@ const SiderNav = (props) => {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
+                    <Menu.Item key={"/logout"}>
+                        <Icon type="logout" />
+                        <span className="nav-text">Logout</span>
+                    </Menu.Item>
                 </Menu>
             </Sider>
         )
