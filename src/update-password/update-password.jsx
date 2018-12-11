@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {Layout} from 'antd'
 import Header from '../components/header/header'
+import Heading from '../components/form/heading/heading'
 import InputType from '../components/form/form-controls/input'
 import Button from '../components/form/button/button'
 import Form from '../components/form/form'
@@ -62,6 +63,7 @@ class UpdatePassword extends Component {
                     <Layout style={{marginTop: 64, height: '100vh'}}>
                         <Content className="login">
                             <div className="login-box">
+                                <Heading heading={<b>Update Password</b>}/>
                                 <Form onSubmitHandler={this.onFormSubmit}>
                                     <InputType 
                                         type="password"
