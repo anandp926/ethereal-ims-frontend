@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Loader from '../components/ui/loader/loader'
 import { Layout } from 'antd'
 import {withRouter, Redirect} from 'react-router-dom';
 import * as actionType from '../store/actions/action-type'
@@ -8,24 +9,44 @@ import Layouts from '../components/layout/layout'
 import ContentLayout from '../components/layout/content-layout'
 import Sider from '../side-nav/sider-nav'
 import refreshToken from '../services/apis/refresh-token'
-import {GetToken, SetToken} from '../helpers/token'
+import deleteToken from '../services/apis/logout'
+import {GetToken, SetToken, DeleteToken} from '../helpers/token'
 
 class LoginChecker extends Component {
       state = {
-        contentSlide: false
+        contentSlide: false,
+        showLoader: false,
+        gToken: ''
     }
 
     callback = (data) => {
       if(data.status === 200){
         SetToken(data.data.nToken, 5);
+        this.setState({gToken: data.data.nToken})
         this.props.basic(data.data.user);
       }else if(data.response){
         console.log(data.response)
       }
     }
 
-    componentDidMount() {
+    logoutCallback = (data) => {
+      if(data.status === 200){
+        DeleteToken();
+        this.setState({showLoader: false});
+        this.props.history.push('/')
+      }else{
+        console.log(data.response);
+      }
+    }
 
+    logout = () => {
+      this.setState({showLoader: true})
+      if(this.state.gToken){
+        deleteToken(this.logoutCallback,this.state.gToken)
+      }
+    }
+
+    componentDidMount() {
         const {currentURL, isLoggedIn, history, setRedirectUrl } = this.props;
         const token = GetToken();
 
@@ -48,14 +69,14 @@ class LoginChecker extends Component {
     
     render() {
       const { isLoggedIn, isFirst, isApproved} = this.props;
-      if (isLoggedIn && isFirst, isApproved === 'approved') {
+      if (isLoggedIn && isFirst && isApproved === 'approved') {
         return (
           <Layout>
             <Header/>
             <Layouts>
-              <Sider content_slider={this.contentSlider} roleType={this.props.userType}/>
+              <Sider content_slider={this.contentSlider} roleType={this.props.userType} logout={() => this.logout}/>
               <ContentLayout contentslide={this.state.contentSlide}>
-                {this.props.children}
+                {this.state.showLoader ? <div className="container"><Loader>Processing...</Loader></div> :this.props.children}
               </ContentLayout>
             </Layouts>
           </Layout>
@@ -63,8 +84,8 @@ class LoginChecker extends Component {
       } else if(!this.props.isFirst){
         return <Redirect to="/user/updatePassword" />
       } else if(this.props.isApproved === 'pending' || this.props.isApproved === null){
-        return <Redirect to="user/profile" />
-      }else {
+        return <Redirect to="/user/profile" />
+      } else{
         return null
       }
     }
