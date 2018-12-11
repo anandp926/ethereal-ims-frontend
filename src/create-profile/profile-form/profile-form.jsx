@@ -8,6 +8,7 @@ import DatePicker from '../../components/form/form-controls/date-picker'
 import Dropdown from '../../components/form/form-controls/select'
 import Button from '../../components/form/button/button'
 import Form from '../../components/form/form'
+import Heading from '../../components/form/heading/heading'
 import Checkbox from '../../components/form/form-controls/checkbox'
 import {Nationality} from '../../helpers/nationality'
 
@@ -149,6 +150,7 @@ class ProfileForm extends Component {
     render(){
         return(
             <div className="login-box">
+                <Heading heading="Fill Basic Details" />
                 <Form onSubmitHandler={this.onFormSubmit}>
                     <DatePicker
                         disabledDate={disabledDate}
