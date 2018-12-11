@@ -55,8 +55,23 @@ const UserPendingIssues = Loadable({
 //     loading: Loading
 // });
 
+const Agreement = Loadable({
+    loader: () => import('../distributor/pages/resources/agreement/agreement'),
+    loading: Loading
+})
+
+const Certificate = Loadable({
+    loader: () => import('../distributor/pages/resources/certificate/certificate'),
+    loading: Loading
+})
+
 const Videos = Loadable({
     loader: () => import('../distributor/pages/resources/videos/videos'),
+    loading: Loading
+})
+
+const Manuals = Loadable({
+    loader: () => import('../distributor/pages/resources/manuals/manuals'),
     loading: Loading
 })
 
@@ -126,6 +141,9 @@ class MainRouting extends Component {
                                 <Route path="/issues/resolved" exact component={UserResolvedIssue} />
                                 <Route path="/issues/resolved/:id" exact component={UserResolvedIssueChat} /> */}
                                 <Route path="/resources/videos" exact component={Videos} />
+                                <Route path="/resources/certificate" exact component={Certificate} />
+                                <Route path="/resources/aggrement" exact component={Agreement} />
+                                <Route path="/resources/manuals" exact component={Manuals} />
                                 <Route path="/shopping" exact component={UserShopping} />
                                 <Route path="/shopping/details/:id" component={UserShoppingDetail} />
                                 <Route path="/faqs" exact component={UserFaqs} />
