@@ -122,7 +122,7 @@ const SiderNav = (props) => {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
-                    <Menu.Item key={"/logout"}>
+                    <Menu.Item key={"/logout"} onClick={props.logout()}>
                         <Icon type="logout" />
                         <span className="nav-text">Logout</span>
                     </Menu.Item>
