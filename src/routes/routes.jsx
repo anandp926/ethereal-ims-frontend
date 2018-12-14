@@ -95,17 +95,22 @@ const UserFaqs = Loadable({
 const AdminDashboard = Loadable({
     loader: () => import('../admin/index'),
     loading: Loading
-})
+});
 
 const CreateUser = Loadable({
     loader: () => import('../admin/pages/users/create-user/create-user'),
     loading: Loading
-})
+});
 
 const UsersList = Loadable({
     loader: () => import('../admin/pages/users/user-list/users'),
     loading: Loading
-})
+});
+
+const ProductCatalogue = Loadable({
+    loader: () => import('../admin/pages/product_catalogue/product_catalogue'),
+    loading: Loading
+});
 
 class MainRouting extends Component {
     history = createHashHistory({
@@ -153,7 +158,8 @@ class MainRouting extends Component {
                             <Switch>
                                 <Route path="/dashboard" exact component={AdminDashboard}/>
                                 <Route path="/users/new" exact component={CreateUser} />
-                                <Route patch="/users/users-list" exact component={UsersList} />
+                                <Route path="/users/users-list" exact component={UsersList} />
+                                <Route path="/product-catalog" exact component={ProductCatalogue} />
                             </Switch>
                         }
                     </LoginChecker>

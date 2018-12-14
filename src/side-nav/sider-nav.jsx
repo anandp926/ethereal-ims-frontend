@@ -8,7 +8,7 @@ const SiderNav = (props) => {
     // For open submenu when active
     var currentPath = props.location.pathname;
     var subPath = currentPath.split('/');
-    var subKey = {'issues': 'sub1', 'resources': 'sub2'};
+    var subKey = {'issues': 'sub1', 'resources': 'sub2', 'users': 'sub11'};
     
     if( props.roleType === 'user'){
         return(
@@ -98,7 +98,7 @@ const SiderNav = (props) => {
                 onCollapse={(collapsed) => {props.content_slider(collapsed)}}
                 className="sider"
             >
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.location.pathname]}>
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.location.pathname]} defaultOpenKeys={[subKey[subPath[1]]]}>
                     <Menu.Item key={"/dashboard"}>
                         <Link to="/dashboard">
                             <Icon type="dashboard" />
@@ -106,22 +106,28 @@ const SiderNav = (props) => {
                         </Link>
                     </Menu.Item>
                     <SubMenu
-                    key={'/issues'}
+                    key={'sub11'}
                     title={<span><Icon type="user" /><span>Users</span></span>}
                     >
                         <Menu.Item key="/users/new">
                             <Link to="/users/new">
-                            <Icon type="user-add" />
-                            <span className="nav-text">Create New</span>
+                                <Icon type="user-add" />
+                                <span className="nav-text">Create New</span>
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="/users/users-list">
                             <Link to="/users/users-list">
-                            <Icon type="team" />
-                            <span className="nav-text">User List</span>
+                                <Icon type="team" />
+                                <span className="nav-text">User List</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>
+                    <Menu.Item key="/product-catalog">
+                        <Link to='/product-catalog'>
+                            <Icon type="setting" />
+                            <span className="nav-text">Product Catalogue</span>
+                        </Link>
+                    </Menu.Item>
                     <Menu.Item key={"/logout"} onClick={props.logout()}>
                         <Icon type="logout" />
                         <span className="nav-text">Logout</span>
