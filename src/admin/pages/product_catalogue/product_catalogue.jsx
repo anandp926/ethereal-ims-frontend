@@ -4,13 +4,14 @@ import CreateProduct from './create_product/create_product';
 import Dashboard from './dashboard/dashboard';
 import CreateVersion from './create_version/create_version';
 import ProductEntry from './product_entry/product_entry';
+import './product_catalogue.css'
 
 const TabPane = Tabs.TabPane;
 
 class ProductCatalogue extends Component {
     render(){
         return(
-            <Tabs defaultActiveKey="4" size='large' >
+            <Tabs defaultActiveKey="2"  >
                 <TabPane tab={<span><Icon type="dashboard" />Dashboard</span>} key="1" >
                     <Dashboard/>
                 </TabPane>
