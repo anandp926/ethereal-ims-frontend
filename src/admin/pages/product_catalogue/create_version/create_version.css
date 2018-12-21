@@ -1,0 +1,20 @@
+/* Create three equal columns that floats next to each other */
+.versionListCol {
+    float: left;
+    width: 25%;
+    padding: 10px; /* Should be removed. Only for demonstration */
+    border: 1px solid rgba(144, 144, 144, 0.23)
+  }
+  
+  /* Clear floats after the columns */
+  .versionList:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  @media only screen and (max-width : 400px){
+    .versionListCol {
+      width: 100%
+    }
+  }
