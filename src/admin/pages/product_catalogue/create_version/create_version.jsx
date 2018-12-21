@@ -1,36 +1,74 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import Form from '../../../../components/form/form';
 import InputType from '../../../../components/form/form-controls/input';
 import Button from '../../../../components/form/button/button';
 import ErrorBox from '../../../../components/form/error-box/error-box';
 import Loader from '../../../../components/ui/loader/loader';
 import Dropdown from '../../../../components/form/form-controls/select' 
+import VersionDetailModal from '../../../../components/layout/modal/modal'
 import RichTextEditor from 'react-rte'
 import ReactTextEditor from '../../../../components/form/rich-text-editor/rich-text-editor'
-import { Table, Select } from 'antd';
+import Card from '../../../../components/ui/card/card'
+import Divider from '../../../../components/ui/divider/divider'
+import { Select, Modal } from 'antd';
+//
+import { GetToken } from '../../../../helpers/token';
+import {createVersion} from '../../../../services/apis/product_catalog';
+import * as actionType from '../../../../store/actions/action-type';
+//
+import './create_version.css'
 
 const Option = Select.Option;
 
 class CreateVersion extends Component {
 
     state = {
+        gToken: GetToken(),
         version: '',
         versionDetail: RichTextEditor.createEmptyValue(),
         productId: '',
+        detailsId: '',
+        productIdWarn: false,
+        versionWarn: false,
         errorMsg: false,
-        showLoader: false
+        showLoader: false,
+        visible: false
     };
 
+    success = () => {
+        Modal.success({
+            title: 'Successful',
+            content: 'Product version has been created.',
+        });
+    };
+
+    callback = (data) => {
+        if(data.status === 200){
+            this.props.versionDispatch(data.data);
+            this.success();
+            this.reset();
+        }else {
+            this.setState({errorMsg: 'Something went wrong. Please try again ', showLoader: false});
+        }
+    }
+
     onFormSubmit = (e) => {
-        const {productId, versionDetail, version} = this.state;
+        this.setState({showLoader: true, errorMsg: ''})
+        const {productId, versionDetail, version, gToken} = this.state;
         e.preventDefault();
 
         const data = {
-            id: productId,
             version: version,
-            details: versionDetail.toString('html')
+            versionDetail: versionDetail.toString('html')
         }
-        console.log(data)
+        if(this.validate() && gToken){
+            this.outlineColor();
+            createVersion(this.callback, productId, data, gToken)
+        }else {
+            this.outlineColor();
+            this.setState({errorMsg: 'Please fill all the required field', showLoader: false});
+        }
     } 
 
     onInputChange = (e) => {
@@ -45,60 +83,64 @@ class CreateVersion extends Component {
         this.setState({ productId: value })
     }
 
-    render(){
-        const dataSource = [{
-            key: '1',
-            version: 'A12018'
-          }, {
-            key: '2',
-            version: 'A12019'
-          }, {
-            key: '3',
-            version: 'A22019'
-          }, {
-            key: '4',
-            version: 'A32019'
-          }];
-          
-          const columns = [{
-            title: 'Version',
-            dataIndex: 'version',
-            key: 'p_version',
-          }, {
-            title: 'Details',
-            key: 'details',
-            render: (text, record) => (
-                <span>
-                    <a href="javascript:;">View</a>
-                </span>
-            ),
-        }, {
-            title: 'Action',
-            key: 'action',
-            render: (text, record) => (
-                <span>
-                    <a href="javascript:;">Edit</a>
-                </span>
-            ),
-        }];
-          
-        const product = [
-            {
-                '_id': 'dfgds577hsgh',
-                'name': 'Halo'
-            },
-            {
-                '_id': 'dfgdsd77hsgh',
-                'name': 'Ray'
-            },
-            {
-                '_id': 'dfgdufr7hsgh',
-                'name': 'Pentagram'
-            }
-        ];
+    outlineColor = () => {
+        if(!this.state.productId.trim()){
+            this.setState({productIdWarn:true})
+        }else{
+            this.setState({productIdWarn:false})
+        }if(!this.state.version.trim()){
+            this.setState({versionWarn:true})
+        }else{
+            this.setState({versionWarn:false})
+        }
+    }
 
+    validate = () => {
+        const { version, productId } = this.state;
+        return version.trim() !== '' && productId.trim() !== '';
+    }
+
+    reset = () => {
+        this.setState({
+            productId: '',
+            version: '',
+            versionDetail: RichTextEditor.createEmptyValue(),
+            showLoader: false,
+            errorMsg: ''
+        })
+    }
+
+    openModal = (pId, vId) => {
+        this.setState({
+            visible: true, 
+            productId: pId, 
+            detailsId: vId
+        })
+    }
+
+    cancelClick = () => {
+        this.setState({
+            visible: false, 
+            productId: '',
+            detailsId: '',
+        })
+    }
+
+    render(){
+        
+        let filterProduct = this.props.products.filter((product) => product._id === this.state.productId);
+        let filterDetail = filterProduct.length > 0 ? filterProduct[0].details.filter((detail) => detail._id === this.state.detailsId) : '';
         return(
             <div className="container product">
+                <VersionDetailModal 
+                    heading="Version Details"
+                    showModal={this.state.visible}
+                    cancelClick={this.cancelClick}
+                    footer={null}
+                    maskClosable={false}
+                >
+                    {filterDetail.length > 0 ? <div dangerouslySetInnerHTML={{ __html: filterDetail[0].versionDetail }} /> : 'No data'}
+                </VersionDetailModal>
                 <div className="container-left">
                     <div className="product-form">
                         <Form onSubmitHandler={this.onFormSubmit}>
@@ -113,7 +155,7 @@ class CreateVersion extends Component {
                                 classValue={this.state.companyIdWarn ? 'inputField-outline' : null}
                             >
                                 {
-                                    product.map((product) => (
+                                    this.props.products.map((product) => (
                                         <Option value={product._id} key={product._id}>{product.name}</Option>
                                     ))
                                 }
@@ -144,31 +186,48 @@ class CreateVersion extends Component {
                     </div>
                 </div>
                 <div className="container-right">
-                    <Table 
-                        dataSource={dataSource} 
-                        columns={columns}
-                        title={() => <h3><b>Halo</b></h3>}
-                        bordered
-                        pagination={false}
-                     />
-                     <Table 
-                        dataSource={dataSource} 
-                        columns={columns}
-                        title={() => <h3><b>Halo</b></h3>}
-                        bordered
-                        pagination={false}
-                     />
-                     <Table 
-                        dataSource={dataSource} 
-                        columns={columns}
-                        title={() => <h3><b>Halo</b></h3>}
-                        bordered
-                        pagination={false}
-                     />
+                    {
+                        this.props.products.map((product) => (
+                            (
+                                <div key={product._id} className="versionTable">
+                                    <Card>
+                                        <h3><b>{product.name} Versions</b></h3>
+                                        <Divider/>
+                                        {
+                                            product.details.length > 0
+                                            ?
+                                            <div className="versionList">
+                                                {
+                                                    product.details.map((version) => (
+                                                        <a onClick={() => this.openModal(product._id, version._id)} className="versionListCol" key={version._id}>
+                                                            {version.version}
+                                                        </a>
+                                                    ))
+                                                }
+                                            </div>
+                                            : <div className="u-text-center">No data</div>
+                                        }
+                                        
+                                    </Card>
+                                </div>
+                            )
+                        ))
+                    }
                 </div>
             </div>
         )
     }
 }
 
-export default CreateVersion
+function mapDispatchToProps (dispatch) {
+    return{
+        versionDispatch: (data) => {
+            dispatch({
+                type: actionType.ADD_VERSION,
+                value: data
+            })
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CreateVersion)
