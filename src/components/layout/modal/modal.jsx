@@ -13,6 +13,8 @@ const modal = (props) => {
             okType={props.okBType ? props.okBType : 'primary'}
             cancelType={props.cancelBType ? props.cancelBType : 'default'}
             footer={props.footer}
+            maskClosable={props.maskClosable}
+            width={768}
         >
             {props.children}
         </Modal>
