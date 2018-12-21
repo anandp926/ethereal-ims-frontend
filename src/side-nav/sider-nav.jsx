@@ -122,6 +122,12 @@ const SiderNav = (props) => {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
+                    <Menu.Item key={"/vendors"}>
+                        <Link to='/vendors'>
+                            <Icon type="setting" />
+                            <span className="nav-text">Vendors</span>
+                        </Link>
+                    </Menu.Item>
                     <Menu.Item key="/product-catalog">
                         <Link to='/product-catalog'>
                             <Icon type="setting" />
