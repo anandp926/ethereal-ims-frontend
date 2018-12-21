@@ -10,3 +10,5 @@ export const USER_PROFILE = 'USER_PROFILE';
 export const APPROVE_USER = 'APPROVE_USER';
 export const PRODUCTS = 'PRODUCTS';
 export const ADD_PRODUCTS = 'ADD_PRODUCTS';
+export const ADD_VERSION = 'ADD_VERSION';
+export const ADD_MACHINE = 'ADD_MACHINE';
