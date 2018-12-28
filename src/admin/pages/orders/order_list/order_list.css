@@ -1,0 +1,20 @@
+.vendor-company-name {
+    font-weight: bold;
+    font-size: 1.2em
+}
+
+.vendor-order-status {
+    font-weight: 700;
+    font-size: 0.9em;
+    color: green;
+}
+
+.vendor-order-id {
+    font-size: 0.8em;
+    margin-left: 0.2rem
+}
+
+.order-detail-list {
+    padding: 10px;
+    margin-bottom: 5px
+}

@@ -39,7 +39,7 @@ class ProductCatalogue extends Component {
             return <Loader />
         }else{
             return(
-                <Tabs defaultActiveKey="1" >
+                <Tabs defaultActiveKey="1"  >
                     <TabPane tab={<span><Icon type="dashboard" />Dashboard</span>} key="1" >
                         <Dashboard products={this.props.products}/>
                     </TabPane>

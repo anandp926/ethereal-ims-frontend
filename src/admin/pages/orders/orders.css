@@ -1,0 +1,53 @@
+fieldset, legend {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset {
+    border: thin solid #1f497d;
+    margin: 0 auto;
+    padding: 0.5em;
+    width: auto
+}
+
+legend {
+    width: auto;
+    color: #1f497d;
+    font-weight: bold
+}
+
+.orders-container {
+    width: 100%;
+}
+
+.order-detail-container {
+    background: #fff;
+    margin-top: 0.5em;
+}
+
+.order-detail table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.order-detail th {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.order-detail th, td {
+    text-align: left;
+    padding: 16px;
+    transition: 0.3s;
+    border: 1px solid #ddd;
+}
+
+.order-detail tr:nth-child(even){background-color: #f2f2f2}
+
+.order-detail tbody tr:hover {
+    background-color: #E6F7FF
+}
+
+.text-right {
+    text-align: right !important
+}
