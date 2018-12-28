@@ -17,7 +17,8 @@
   overflow:initial;
   height: 100vh; 
   position: fixed; 
-  left: 0
+  left: 0;
+  z-index: 1000;
 }
 
 .content-pull-right {
@@ -93,8 +94,24 @@ label {
   justify-content: center;
 }
 
+.container-left {
+  width: 50%;
+  padding: 0 2% 0 2%;
+  align-self: flex-start
+}
+
+.container-right {
+  width: 50%;
+  padding: 0 2% 0 2%;
+  align-self: flex-start
+}
+
 .flex-column {
   flex-direction: column
+}
+
+.flex-row {
+  flex-direction: row
 }
 
 .issue-form {
@@ -169,6 +186,11 @@ span {
     width: 100%
   }
    
+  .container-right,
+  .container-left {
+      width: 100%
+  }
+
   .login-button-group {
     flex-direction: column
   }
@@ -191,6 +213,10 @@ span {
   
   .issue-list {
     width: 100%;
+  }
+
+  .flex-row {
+    flex-direction: column
   }
 
 }
