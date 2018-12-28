@@ -131,7 +131,7 @@ class CreateVersion extends Component {
         let filterProduct = this.props.products.filter((product) => product._id === this.state.productId);
         let filterDetail = filterProduct.length > 0 ? filterProduct[0].details.filter((detail) => detail._id === this.state.detailsId) : '';
         return(
-            <div className="container product">
+            <div className="container flex-row">
                 <VersionDetailModal 
                     heading="Version Details"
                     showModal={this.state.visible}
