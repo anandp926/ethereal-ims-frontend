@@ -98,7 +98,7 @@ const AdminDashboard = Loadable({
 });
 
 const Vendors = Loadable({
-    loader: () => import('../admin/pages/vendors/vedors'),
+    loader: () => import('../admin/pages/vendors/vendors'),
     loading: Loading
 })
 
@@ -109,6 +109,11 @@ const CreateUser = Loadable({
 
 const UsersList = Loadable({
     loader: () => import('../admin/pages/users/user-list/users'),
+    loading: Loading
+});
+
+const Orders = Loadable({
+    loader: () => import('../admin/pages/orders/orders'),
     loading: Loading
 });
 
@@ -166,6 +171,7 @@ class MainRouting extends Component {
                                 <Route path="/users/users-list" exact component={UsersList} />
                                 <Route path="/product-catalog" exact component={ProductCatalogue} />
                                 <Route path="/vendors" exact component={Vendors} />
+                                <Route path="/orders" exact component={Orders} />
                             </Switch>
                         }
                     </LoginChecker>
