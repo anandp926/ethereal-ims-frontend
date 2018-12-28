@@ -130,7 +130,9 @@ class ProductEntry extends Component {
             key: 'p_version',
           }, {
             title: 'Machines',
-            dataIndex: 'count',
+            render: (text, record) => (
+                record.count+record.sold
+            ),
             key: 'p_count',
         }, {
             title: 'Action',
@@ -144,7 +146,7 @@ class ProductEntry extends Component {
 
         let filterProduct = this.props.products.filter((product) => product._id === this.state.productId);
         return(
-            <div className="container product">
+            <div className="container flex-row">
                 <div className="container-left">
                     <div className="product-form">
                         <Form onSubmitHandler={this.onFormSubmit}>
@@ -226,7 +228,7 @@ class ProductEntry extends Component {
                                 dataSource={product.details} 
                                 columns={columns}
                                 rowKey={record => record._id}
-                                title={() => <h3><b>{product.name}</b>&nbsp;<b>({product.count})</b></h3>}
+                                title={() => <h3><b>{product.name}</b>&nbsp;<b>({product.count+product.sold})</b></h3>}
                                 bordered
                                 pagination={false}
                             />
