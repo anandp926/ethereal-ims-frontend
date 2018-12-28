@@ -102,7 +102,7 @@ class CreateProduct extends Component {
         }];
 
         return(
-            <div className="container flex-row">
+            <div className="container product">
                 <div className="container-left">
                     <div className="product-form">
                         <Form onSubmitHandler={this.onFormSubmit}>

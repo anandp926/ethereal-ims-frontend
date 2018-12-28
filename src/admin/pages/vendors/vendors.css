@@ -1,0 +1,34 @@
+.vendors-container {
+    width: 100%;
+    display: flex;
+    background: #fff;
+    padding: 1rem 1rem;
+    transition: 0.3s
+}
+
+.vendor-table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.vendor-table th {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.vendor-table th, td {
+    text-align: left;
+    padding: 16px;
+    transition: 0.3s;
+    border: 1px solid #ddd;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.vendor-table tr:nth-child(even){background-color: #f2f2f2}
+
+.vendor-table tbody tr:hover {
+    background-color: #E6F7FF
+}
