@@ -124,8 +124,14 @@ const SiderNav = (props) => {
                     </SubMenu>
                     <Menu.Item key={"/vendors"}>
                         <Link to='/vendors'>
-                            <Icon type="setting" />
+                            <Icon type='shop' />
                             <span className="nav-text">Vendors</span>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={"/orders"}>
+                        <Link to='/orders'>
+                            <Icon type="shopping-cart" />
+                            <span className="nav-text">Orders</span>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="/product-catalog">
