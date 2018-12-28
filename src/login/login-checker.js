@@ -22,7 +22,7 @@ class LoginChecker extends Component {
     callback = (data) => {
       if(data.status === 200){
         SetToken(data.data.nToken, 5);
-        this.setState({gToken: data.data.nToken})
+        this.setState({gToken: data.data.nToken});
         this.props.basic(data.data.user);
       }else if(data.response){
         console.log(data.response)
