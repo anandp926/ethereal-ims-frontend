@@ -19,6 +19,7 @@ const select =(props)=> {
                 size="large"
                 required={props.isRequired ? props.isRequired : false}
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                {...props}
             >
                 {props.children}
             </Select>
