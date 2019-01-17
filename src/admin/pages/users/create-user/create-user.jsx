@@ -14,7 +14,8 @@ class CreateUser extends Component {
 
     state = {
         visible: false,
-        showLoader: true
+        showLoader: true,
+        gToken: GetToken()
     }
 
     callback = (data) => {
@@ -27,9 +28,9 @@ class CreateUser extends Component {
     }
 
     componentDidMount(){
-        const token = GetToken();
-        if(token){
-            getCompanylist(this.callback, token);
+        const {gToken} = this.state;
+        if(gToken){
+            getCompanylist(this.callback, gToken);
         } 
     }
 
