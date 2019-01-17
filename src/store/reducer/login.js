@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
             }
         case actionType.LOGOUT:
             return {
-                isLogedIn: !!GetToken()
+                isLogedIn: false
             }
         default:
             return state
