@@ -16,7 +16,7 @@ class LoginChecker extends Component {
       state = {
         contentSlide: false,
         showLoader: false,
-        gToken: ''
+        gToken: GetToken()
     }
 
     callback = (data) => {
@@ -33,6 +33,7 @@ class LoginChecker extends Component {
       if(data.status === 200){
         DeleteToken();
         this.setState({showLoader: false});
+        this.props.isLogout();
         this.props.history.push('/')
       }else{
         console.log(data.response);
@@ -48,16 +49,15 @@ class LoginChecker extends Component {
 
     componentDidMount() {
         const {currentURL, isLoggedIn, history, setRedirectUrl } = this.props;
-        const token = GetToken();
 
         if (!isLoggedIn) {
           // set the current url/path for future redirection (we use a Redux action)
           // then redirect (we use a React Router method)
           setRedirectUrl(currentURL);
           history.push('/');
-        }else if(isLoggedIn && token){
+        }else if(isLoggedIn && this.state.gToken){
           setRedirectUrl(currentURL);
-          refreshToken(this.callback, {token:token}, token);
+          refreshToken(this.callback, {token:this.state.gToken}, this.state.gToken);
         }
     }
 
@@ -117,6 +117,11 @@ class LoginChecker extends Component {
           dispatch({
             type: actionType.USER_BASIC,
             value: data
+          })
+        },
+        isLogout: () => {
+          dispatch({
+            type: actionType.LOGOUT
           })
         }
       }
