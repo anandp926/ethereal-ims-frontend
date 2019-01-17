@@ -1,137 +1,77 @@
 import React, { Component } from 'react';
-import {Select, Tabs, Icon} from 'antd'
-import Form from '../../../../components/form/form';
-import Dropdown from '../../../../components/form/form-controls/select';
-import Button from '../../../../components/form/button/button';
+import {connect} from 'react-redux';
+import AddVendor from './add_vendor/add_vendor';
+import AddProduct from './add_product/add_product';
+import OrderDetail from './order_detail/order_detail';
 import Loader from '../../../../components/ui/loader/loader';
 import ErrorBox from '../../../../components/form/error-box/error-box';
-
-const Option = Select.Option;
+//
+import {GetToken} from '../../../../helpers/token';
+import getCompanylist from '../../../../services/apis/get-company';
+import {getAllProduct} from '../../../../services/apis/product_catalog';
+import {getUnproceedOrder} from '../.././../../services/apis/orders'
+import * as actionType from '../../../../store/actions/action-type'
 
 class AllocateOrder extends Component {
 
     state = {
-        orderId: '',
-        errorMsg: false,
-        showLoader: false
+        showLoader: true,
+        gToken: GetToken(),
+        vendorDisable: this.props.unproceedOrder
+    }
+    
+    companyCallback = (data) => {
+        if(data.status === 200){
+            this.props.getCompany(data.data);
+            this.setState({showLoader: false})
+        }else {
+            console.log(data.response);
+        }
     }
 
-    onProductSelect = (value) => {
-        //
+    productCallback = (data) => {
+        if(data.status === 200){
+            this.props.getProducts(data.data)
+            this.setState({showLoader: false})
+        }else {
+            console.log(data.response)
+        }
+    }
+
+    unproceedCallback = (data) => {
+        if(data.status === 200) {
+            this.props.dispatchUnproceed(data.data)
+        }else {
+            console.log(data.response)
+        }
+    }
+
+    componentDidMount(){
+        const {gToken} = this.state;
+        if(gToken){
+            getCompanylist(this.companyCallback, gToken);
+            getAllProduct(this.productCallback, gToken);
+            getUnproceedOrder(this.unproceedCallback, gToken);
+        } 
     }
 
     render() {
+        console.log(this.props.test.unproceed)
         return(
             <div className="container flex-row">
                 <div className="container-left">
-                    <Form onSubmitHandler={this.onFormSubmit}>
-                        <fieldset>
-                            <legend>Add Vendor</legend>
-                            <Dropdown
-                                labelName="Vendor/Company"
-                                placeholder="Select Vendor"
-                                optionFilterProp="children"
-                                onSelect={this.onProductSelect}
-                                size="large"
-                                isRequired={true}
-                                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                                // classValue={this.state.companyIdWarn ? 'inputField-outline' : null}
-                            >
-                                <Option value="sdf3" key='1'>Ethereal Machines</Option>
-                            </Dropdown>
-                            { this.state.errorMsg ? <ErrorBox errorMsgs={this.state.errorMsg} /> : null}
-                            { this.state.showLoader ? <Loader>Creating...</Loader> : null }
-                            <div className="issue-form-button">
-                                <Button isType='primary' htmlTypes='submit'>Add</Button>
-                            </div>
-                        </fieldset>
-                    </Form>
-                    <Form onSubmitHandler={this.onFormSubmit}>
-                        <fieldset>
-                            <legend>Add Products</legend>
-                            <Dropdown
-                                labelName="Product"
-                                placeholder="Select Product"
-                                optionFilterProp="children"
-                                onSelect={this.onProductSelect}
-                                size="large"
-                                isRequired={true}
-                                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                                // classValue={this.state.companyIdWarn ? 'inputField-outline' : null}
-                            >
-                                <Option value="sdf3" key='1'>Halo</Option>
-                            </Dropdown>
-                            <Dropdown
-                                labelName="Serial Number"
-                                placeholder="Select Serial Number"
-                                optionFilterProp="children"
-                                onSelect={this.onProductSelect}
-                                size="large"
-                                isRequired={true}
-                                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                                // classValue={this.state.companyIdWarn ? 'inputField-outline' : null}
-                            >
-                                <Option value="sdf3" key='1'>gfutfgiu</Option>
-                            </Dropdown>
-                            { this.state.errorMsg ? <ErrorBox errorMsgs={this.state.errorMsg} /> : null}
-                            { this.state.showLoader ? <Loader>Creating...</Loader> : null }
-                            <div className="issue-form-button">
-                                <Button isType='primary' htmlTypes='submit'>Add</Button>
-                            </div>
-                        </fieldset>
-                    </Form>
+                {
+                    // this.state.showLoader && !this.props.companies
+                    // ? <Loader/>
+                    // : <AddVendor companies={this.props.companies}/>
+                }
+                    <AddVendor companies={this.props.companies} vendorDisable={this.state.vendorDisable}/>
+                    <AddProduct products={this.props.products} unproceedOrder={this.props.unproceedOrder}/>
                 </div>
                 <div className="container-right">
                     <div className="order-detail-container">
                         <div className="order-detail" style={{overflowX:'auto'}}>
-                            <table border="1">
-                                <thead>
-                                    <tr>
-                                        <td colSpan="4">
-                                            <h3><b>Ethereal Machines</b></h3>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sr. </th>
-                                        <th>Product Name</th>
-                                        <th>Serial Number</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Halo</td>
-                                        <td>kdytskmdsfdyrns</td>
-                                        <td>
-                                            <span><a href="javascript:;">Remove</a></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Pentagram</td>
-                                        <td>kdytskmdsfdyrns</td>
-                                        <td>
-                                            <span><a href="javascript:;">Remove</a></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Ray</td>
-                                        <td>kdytskmdsfdyrns</td>
-                                        <td>
-                                            <span><a href="javascript:;">Remove</a></span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colSpan="4" className="text-right">
-                                            <Button isType="primary">Proceed</Button>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <OrderDetail unproceedOrder={this.props.unproceedOrder} companies={this.props.companies}/>
                         </div>
                     </div>
                 </div>
@@ -140,4 +80,36 @@ class AllocateOrder extends Component {
     }
 }
 
-export default AllocateOrder
+function mapStateToProps(state) {
+    return{
+        companies: state.Company.company,
+        products: state.Products.products,
+        unproceedOrder: state.Orders.unproceed,
+        test: state.Orders
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return{
+        getCompany: (data) => {
+            dispatch({
+                type: actionType.COMPANY,
+                value: data
+            })
+        },
+        getProducts: (data) => {
+            dispatch({
+                type: actionType.PRODUCTS,
+                value: data
+            })
+        },
+        dispatchUnproceed: (data) => {
+            dispatch({
+                type: actionType.UNPROCEED_ORDER,
+                value: data
+            })
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllocateOrder)
