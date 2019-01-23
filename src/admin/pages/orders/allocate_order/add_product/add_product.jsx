@@ -19,6 +19,7 @@ class AddProduct extends Component {
         name: '',
         version: '',
         machineSRN: '',
+        serialNumber: '',
         errorMsg: false,
         showLoader: false,
         serialNumberWarn: false,
@@ -28,8 +29,9 @@ class AddProduct extends Component {
 
     callback = (data) => {
         if(data.status === 200) {
-            this.setState({showLoader: false, errorMsg: ''})
-            this.props.dispatchAddProduct(data.data.order.products)
+            this.setState({showLoader: false, errorMsg: '', machineSRN: ''})
+            this.props.dispatchAddProduct(data.data.order);
+            this.props.dispatchUpdateMachineStatus(data.data.product, this.state.serialNumber)
         }else{
             this.setState({showLoader: false, errorMsg: 'Something went wrong. Please try again later &#x2639;'});
             console.log(data.response)
@@ -46,15 +48,14 @@ class AddProduct extends Component {
             version: version,
             machineSRN: machineSRN
         }
-        const id = this.props.unproceedOrder._id;
+        const id = this.props.unproceedOrder[0]._id;
         if(this.validate() && id){
             this.outlineColor();
             addProduct(this.callback, id, data, gToken);
         }else{
             this.outlineColor();
-            this.setState({showLoader: false, errorMsg: 'Select All Fields'});
+            this.setState({showLoader: false, errorMsg: `Select all fields or You can't add same serialNumber`});
         }
-        // this.props.dispatchAddProduct()
     }
 
     onProductSelect = (value) => {
@@ -71,7 +72,7 @@ class AddProduct extends Component {
             filtermachine = filterProduct[0].productList.filter((machine) => machine.serialNumber === value)
         }
         if(filtermachine) {
-            this.setState({machineSRN: value, version: filtermachine[0].version});
+            this.setState({machineSRN: value, serialNumber: value, version: filtermachine[0].version});
         }
     }
 
@@ -93,8 +94,16 @@ class AddProduct extends Component {
     }
 
     render() {
-        console.log(this.props.orders)
-        let filterProduct, filtermachine;
+        let filterProduct, filtermachine, vendorDisable;
+
+        if(this.props.unproceedOrder) {
+            this.props.unproceedOrder.length === 0 ? vendorDisable = true : vendorDisable = false;
+        }else if(this.props.unproceedOrder === undefined){
+            vendorDisable = true
+        }else{
+            vendorDisable = false
+        }
+
         filterProduct  = this.props.products.filter((product) => product._id === this.state.productId);
         if(filterProduct[0] !== undefined && filterProduct[0] !== null) {
             filtermachine = filterProduct[0].productList.filter((machine) => machine.sold === false)
@@ -102,7 +111,9 @@ class AddProduct extends Component {
 
         return(
             <Form onSubmitHandler={this.onFormSubmit}>
-                <fieldset>
+                <fieldset disabled={vendorDisable}
+                    style={vendorDisable ? {pointerEvents: "none", opacity: "0.5",} : {}}
+                >
                     <legend>Add Products</legend>
                     <Dropdown
                         labelName="Product"
@@ -151,10 +162,16 @@ class AddProduct extends Component {
 
 function mapDispatchToProps(dispatch) {
     return{
-        dispatchAddProduct : (data) => {
+        dispatchAddProduct: (data) => {
             dispatch({
                 type: actionType.UNPROCEED_ADD_PRODUCT,
                 value: data
+            })
+        },
+        dispatchUpdateMachineStatus: (data, serialNumber) => {
+            dispatch({
+                type: actionType.UPDATE_MACHINE_STATUS,
+                value: {data, serialNumber}
             })
         }
     }
