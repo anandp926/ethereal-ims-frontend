@@ -51,3 +51,12 @@ legend {
 .text-right {
     text-align: right !important
 }
+
+.change-status-div {
+    padding: 10px
+}
+
+.change-status {
+    margin-right: 10px;
+    margin-bottom: 5px
+}
