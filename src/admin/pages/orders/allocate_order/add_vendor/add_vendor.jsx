@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import {Select} from 'antd'
 import Form from '../../../../../components/form/form';
 import Dropdown from '../../../../../components/form/form-controls/select';
@@ -24,8 +25,8 @@ class AddVendor extends Component {
 
     callback = (data) => {
         if(data.status === 200) {
-            this.setState({showLoader: false, errorMsg: ''})
-            console.log(data.data)
+            this.setState({showLoader: false, errorMsg: ''});
+            this.props.dispatchAddUnproccedOrder(data.data);
         }else{
             this.setState({showLoader: true, errorMsg: 'Something went wrong. Please try again later &#x2639;'});
             console.log(data.response)
@@ -63,11 +64,16 @@ class AddVendor extends Component {
     }
 
     render(){
+        let vendorDisable;
+        if(this.props.unproceedOrder) {
+            this.props.unproceedOrder.length > 0 ? vendorDisable = true : vendorDisable = false
+        }
+        
         return(
             <Form onSubmitHandler={this.onFormSubmit}>
                 <fieldset 
-                    disabled={this.props.vendorDisable}
-                    style={this.props.vendorDisable ? {pointerEvents: "none", opacity: "0.5",} : {}}
+                    disabled={vendorDisable}
+                    style={vendorDisable ? {pointerEvents: "none", opacity: "0.5",} : {}}
                 >
                     <legend>Add Vendor</legend>
                     <Dropdown
@@ -97,4 +103,15 @@ class AddVendor extends Component {
     }
 }
 
-export default AddVendor
+function mapDispatchToProps (dispatch) {
+    return {
+        dispatchAddUnproccedOrder: (data) => {
+            dispatch({
+                type: actionType.ADD_UNPROCEED_ORDER,
+                value: data
+            })
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AddVendor)
