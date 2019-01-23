@@ -131,7 +131,7 @@ class ProductEntry extends Component {
           }, {
             title: 'Machines',
             render: (text, record) => (
-                record.count+record.sold
+                record.count
             ),
             key: 'p_count',
         }, {
@@ -228,7 +228,7 @@ class ProductEntry extends Component {
                                 dataSource={product.details} 
                                 columns={columns}
                                 rowKey={record => record._id}
-                                title={() => <h3><b>{product.name}</b>&nbsp;<b>({product.count+product.sold})</b></h3>}
+                                title={() => <h3><b>{product.name}</b>&nbsp;&nbsp;<b style={{color: 'green'}}>avl.({product.count})</b></h3>}
                                 bordered
                                 pagination={false}
                             />
