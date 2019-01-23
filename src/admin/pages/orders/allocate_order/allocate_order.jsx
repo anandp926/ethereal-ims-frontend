@@ -7,26 +7,15 @@ import Loader from '../../../../components/ui/loader/loader';
 import ErrorBox from '../../../../components/form/error-box/error-box';
 //
 import {GetToken} from '../../../../helpers/token';
-import getCompanylist from '../../../../services/apis/get-company';
 import {getAllProduct} from '../../../../services/apis/product_catalog';
-import {getUnproceedOrder} from '../.././../../services/apis/orders'
+import {removeProduct, checkout} from '../../../../services/apis/orders'
 import * as actionType from '../../../../store/actions/action-type'
 
 class AllocateOrder extends Component {
 
     state = {
         showLoader: true,
-        gToken: GetToken(),
-        vendorDisable: this.props.unproceedOrder
-    }
-    
-    companyCallback = (data) => {
-        if(data.status === 200){
-            this.props.getCompany(data.data);
-            this.setState({showLoader: false})
-        }else {
-            console.log(data.response);
-        }
+        gToken: GetToken()
     }
 
     productCallback = (data) => {
@@ -38,25 +27,45 @@ class AllocateOrder extends Component {
         }
     }
 
-    unproceedCallback = (data) => {
-        if(data.status === 200) {
-            this.props.dispatchUnproceed(data.data)
-        }else {
+    removeProductCallback = (data, serialNumber, id) => {
+        if(data.status === 200){
+            this.props.dispatchUnproceedRemoveProduct(data.data.order, id);
+            this.props.dispatchUpdateMachineStatus(data.data.product, serialNumber);
+        }else{
             console.log(data.response)
+        }
+    }
+
+    removeProduct = (data, id) => {
+        const {gToken} = this.state;
+        if(gToken){
+            removeProduct(this.removeProductCallback, id, data, gToken)
+        }
+    }
+
+    proceedCallback = (data) => {
+        if(data.status === 200){
+            this.props.dispatchProceedOrder(data.data);
+        }else{
+            console.log(data.response)
+        }
+    }
+
+    proceedOrder = (id) => {
+        const {gToken} = this.state;
+        if(gToken){
+            checkout(this.proceedCallback, id, gToken)
         }
     }
 
     componentDidMount(){
         const {gToken} = this.state;
         if(gToken){
-            getCompanylist(this.companyCallback, gToken);
             getAllProduct(this.productCallback, gToken);
-            getUnproceedOrder(this.unproceedCallback, gToken);
-        } 
+        }
     }
 
     render() {
-        console.log(this.props.test.unproceed)
         return(
             <div className="container flex-row">
                 <div className="container-left">
@@ -65,13 +74,18 @@ class AllocateOrder extends Component {
                     // ? <Loader/>
                     // : <AddVendor companies={this.props.companies}/>
                 }
-                    <AddVendor companies={this.props.companies} vendorDisable={this.state.vendorDisable}/>
-                    <AddProduct products={this.props.products} unproceedOrder={this.props.unproceedOrder}/>
+                    <AddVendor companies={this.props.companies} unproceedOrder = {this.props.unproceedOrder} />
+                    <AddProduct products={this.props.products} unproceedOrder = {this.props.unproceedOrder}/>
                 </div>
                 <div className="container-right">
                     <div className="order-detail-container">
                         <div className="order-detail" style={{overflowX:'auto'}}>
-                            <OrderDetail unproceedOrder={this.props.unproceedOrder} companies={this.props.companies}/>
+                            <OrderDetail 
+                                Orders= {this.props.Orders} 
+                                proceedOrder={this.proceedOrder} 
+                                removeProduct={this.removeProduct} 
+                                companies={this.props.companies}
+                            />
                         </div>
                     </div>
                 </div>
@@ -82,30 +96,33 @@ class AllocateOrder extends Component {
 
 function mapStateToProps(state) {
     return{
-        companies: state.Company.company,
         products: state.Products.products,
-        unproceedOrder: state.Orders.unproceed,
-        test: state.Orders
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return{
-        getCompany: (data) => {
-            dispatch({
-                type: actionType.COMPANY,
-                value: data
-            })
-        },
         getProducts: (data) => {
             dispatch({
                 type: actionType.PRODUCTS,
                 value: data
             })
         },
-        dispatchUnproceed: (data) => {
+        dispatchUpdateMachineStatus: (data, serialNumber) => {
             dispatch({
-                type: actionType.UNPROCEED_ORDER,
+                type: actionType.UPDATE_MACHINE_STATUS,
+                value: {data, serialNumber}
+            })
+        },
+        dispatchUnproceedRemoveProduct: (data, id) => {
+            dispatch({
+                type: actionType.UNPROCEED_REMOVE_PRODUCT,
+                value: {data, id}
+            })
+        },
+        dispatchProceedOrder: (data) => {
+            dispatch({
+                type: actionType.UPDATE_ORDER_STATUS,
                 value: data
             })
         }
