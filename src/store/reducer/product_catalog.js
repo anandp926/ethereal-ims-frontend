@@ -51,6 +51,7 @@ const reducer = (state= {products: []}, action) => {
                     
                     return Object.assign({}, product, {
                         count: action.value.count,
+                        sold: action.value.sold,
                         productList: product.productList.concat(newMachine),
                         details: product.details.map((detail) => {
                             if(detail.version !== newMachine[0].version){
@@ -63,7 +64,33 @@ const reducer = (state= {products: []}, action) => {
                         })
                     })
                 })
-            }) 
+            })
+        case actionType.UPDATE_MACHINE_STATUS:
+            return Object.assign({}, state, {
+                products: state.products.map((product) => {
+                    if(product._id !== action.value.data._id){
+                        return product
+                    }
+
+                    var updatedStatus = action.value.data.productList.filter((machine) => {
+                        return machine.serialNumber === action.value.serialNumber
+                    });
+
+                    return Object.assign({}, product, {
+                        count: action.value.count,
+                        sold: action.value.sold,
+                        productList: product.productList.map((machine) => {
+                            if(machine.serialNumber !== action.value.serialNumber){
+                                return machine
+                            }
+                            
+                            return Object.assign({}, machine, {
+                                sold: updatedStatus[0].sold
+                            })
+                        })
+                    })
+                })
+            })
         default:
             return state
     };
