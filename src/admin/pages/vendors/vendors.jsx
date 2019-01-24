@@ -6,13 +6,15 @@ import './vendors.css'
 //
 import * as actionType from '../../../store/actions/action-type';
 import getCompany from '../../../services/apis/get-company'
+import {getAllProduct} from '../../../services/apis/product_catalog';
 import { GetToken } from '../../../helpers/token'
 
 class Vendors extends Component {
 
     state = {
         gToken: GetToken(),
-        showLoader: true
+        showLoader: true,
+        showPLoader: true
     }
 
     callback = (data) => {
@@ -24,18 +26,37 @@ class Vendors extends Component {
         }
     }
 
+    productCallback = (data) => {
+        if(data.status === 200){
+            this.props.getProducts(data.data)
+            this.setState({showPLoader: false})
+        }else {
+            console.log(data.response)
+        }
+    }
+
     componentDidMount(){
-        getCompany(this.callback, this.state.gToken)
+        const {gToken} = this.state;
+        if(gToken){
+            getAllProduct(this.productCallback, gToken);
+            getCompany(this.callback, gToken)
+        }
     }
 
     render(){
-        if(this.props.companies.length === 0){
+        if(this.state.showLoader && this.state.showPLoader){
             return (
                 <div className="container">
                     <Loader/>
                 </div>
             )
-        }else {
+        }else if(this.props.companies.length === 0){
+            return (
+                <div className="vendors-container flex-row u-text-center">
+                    <h2><b style={{color: '#bcbcbc'}}>No Data</b></h2>
+                </div>
+            )
+         }else {
             return(
                 <div className="vendors-container flex-column">
                     <h2><b>Vendor List</b></h2>
@@ -47,23 +68,46 @@ class Vendors extends Component {
                                     <th>Vendor Comapny</th>
                                     <th>Location</th>
                                     <th>Machines</th>
+                                    {/* {
+                                        this.props.products.length > 0 &&(
+                                            this.props.products.map((product) => (
+                                                <th key={product._id}>{product.name}</th>
+                                            ))
+                                        )
+                                    } */}
+                                    <th>Pentagram</th>
                                     <th>Halo</th>
                                     <th>Ray</th>
-                                    <th>Pentagram</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    this.props.companies.map((vendor) => (
-                                        <tr key={vendor._id}>
+                                    this.props.companies.map((vendor) => {
+                                        var haloCount=0, pentagramCount=0, rayCount=0;
+                                        return(
+                                            <tr key={vendor._id}>
                                             <td>{vendor.name}</td>
                                             <td>{vendor.location}</td>
-                                            <td className="text-right"><span>50</span></td>
-                                            <td className="text-right"><span>50</span></td>
-                                            <td className="text-right"><span>50</span></td>
-                                            <td className="text-right"><span>50</span></td>
-                                        </tr>
-                                    ))
+                                            <td className="text-right"><span>{vendor.products.length}</span></td>
+                                            {
+                                                vendor.products.length > 0 &&(
+                                                    vendor.products.map((product) => {
+                                                        if(product.name === 'Halo'){
+                                                            haloCount++
+                                                        }else if(product.name === 'Pentagram'){
+                                                            pentagramCount++
+                                                        }else if(product.name === 'Ray'){
+                                                            rayCount++
+                                                        }
+                                                    })
+                                                )
+                                            }
+                                            <td className="text-right"><span>{haloCount}</span></td>
+                                            <td className="text-right"><span>{pentagramCount}</span></td>
+                                            <td className="text-right"><span>{pentagramCount}</span></td>
+                                            </tr>
+                                        )
+                                    })
                                 }
                             </tbody>
                         </table>
@@ -76,7 +120,8 @@ class Vendors extends Component {
 
 function mapStateToProps (state) {
     return{
-        companies: state.Company.company
+        companies: state.Company.company,
+        products: state.Products.products,
     }
 }
 
@@ -85,6 +130,12 @@ function mapDispatchToProps (dispatch) {
         vendorDispatch : (data) => {
             dispatch({
                 type: actionType.COMPANY,
+                value: data
+            })
+        },
+        getProducts: (data) => {
+            dispatch({
+                type: actionType.PRODUCTS,
                 value: data
             })
         }
