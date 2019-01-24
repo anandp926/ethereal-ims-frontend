@@ -8,6 +8,14 @@ export const addVendor = (callback, data, token) => {
 };
 
 // (order id)
+export const removeUnproceedOrder = (callback, id, token) => {
+    axios.delete(`/order/remove-order/${id}`, {headers: {"x-auth": token}})
+        .then((res) => {
+            callback(res)
+        }).catch((err) => callback(err));
+}
+
+// (order id)
 export const addProduct = (callback, id, data, token) => {
     axios.patch(`/order/add-product/${id}`, data, {headers:{"x-auth": token}})
         .then((res) => {
