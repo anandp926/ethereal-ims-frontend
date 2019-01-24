@@ -2,6 +2,7 @@ import React from 'react';
 import { Collapse, Steps, Icon } from 'antd';
 import sortBy from 'sort-by';
 import Button from '../../../../components/form/button/button'
+import ErrorBox from '../../../../components/form/error-box/error-box'
 import {status} from '../../../../helpers/order_status';
 
 const Panel = Collapse.Panel;
@@ -29,7 +30,13 @@ const ChangeStatus= (props) => {
                         <Panel 
                             header={
                                     <div>
-                                        <span className="vendor-company-name">Ethereal Machiens, Bangaluru.</span>
+                                        {
+                                            props.companies.map((company) => {
+                                                if(company._id === order.vendorId){
+                                                    return <span className="vendor-company-name" key={company._id}>{company.name}, {company.location}.</span>
+                                                }
+                                            })
+                                        }
                                         <span className="vendor-order-status">{status(order.orderStatus)}</span>
                                         <div className="vendor-order-id"><strong>Order ID:</strong> {order._id}</div>
                                     </div> 
@@ -67,6 +74,7 @@ const ChangeStatus= (props) => {
                                 >
                                     installed
                                 </Button>
+                                <ErrorBox errorMsgs="Please change status order Order-by"/>
                             </div>
                             <div className="order-detail order-detail-list" style={{overflowX:'auto'}}>
                                 <table border="1">
