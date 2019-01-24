@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Modal } from 'antd';
 import AddVendor from './add_vendor/add_vendor';
 import AddProduct from './add_product/add_product';
 import OrderDetail from './order_detail/order_detail';
 import Loader from '../../../../components/ui/loader/loader';
 import ErrorBox from '../../../../components/form/error-box/error-box';
+import FullScreenLoading from '../../../../components/ui/fullscreen_loader/fullscreen_loader'
 //
 import {GetToken} from '../../../../helpers/token';
 import {getAllProduct} from '../../../../services/apis/product_catalog';
-import {removeProduct, checkout} from '../../../../services/apis/orders'
+import {removeProduct, checkout, removeUnproceedOrder} from '../../../../services/apis/orders'
 import * as actionType from '../../../../store/actions/action-type'
 
 class AllocateOrder extends Component {
 
     state = {
         showLoader: true,
-        gToken: GetToken()
+        gToken: GetToken(),
+        orderDetailEditLoader: false,
+        errMsg: ''
+    }
+
+    success = () => {
+        Modal.success({
+            title: 'Successful',
+            content: 'Order has been allocated :).',
+        });
+    }
+
+    error = () => {
+        Modal.error({
+            title: 'Oops',
+            content: 'Something went wrong. Please try again later :(',
+        })
     }
 
     productCallback = (data) => {
@@ -23,35 +41,64 @@ class AllocateOrder extends Component {
             this.props.getProducts(data.data)
             this.setState({showLoader: false})
         }else {
+            this.error();
             console.log(data.response)
         }
     }
 
     removeProductCallback = (data, serialNumber, id) => {
         if(data.status === 200){
+            this.setState({orderDetailEditLoader: false});
             this.props.dispatchUnproceedRemoveProduct(data.data.order, id);
             this.props.dispatchUpdateMachineStatus(data.data.product, serialNumber);
         }else{
+            this.setState({orderDetailEditLoader: false});
+            this.error();
             console.log(data.response)
         }
     }
 
     removeProduct = (data, id) => {
+        this.setState({orderDetailEditLoader: true});
         const {gToken} = this.state;
         if(gToken){
             removeProduct(this.removeProductCallback, id, data, gToken)
         }
     }
 
+    removeOrderCallback = (data) => {
+        if(data.status === 200){
+            this.setState({orderDetailEditLoader: false});
+            this.props.dispatchRemoveOrder(data.data)
+        } else{
+            this.setState({orderDetailEditLoader: false});
+            this.error();
+            console.log(data.response)
+        }
+    }
+
+    removeOrder = (id) => {
+        this.setState({orderDetailEditLoader: true});
+        const {gToken} = this.state;
+        if(gToken){
+            removeUnproceedOrder(this.removeOrderCallback, id, gToken)
+        }
+    }
+
     proceedCallback = (data) => {
         if(data.status === 200){
+            this.setState({orderDetailEditLoader: false});
             this.props.dispatchProceedOrder(data.data);
+            this.success();
         }else{
+            this.setState({orderDetailEditLoader: false});
+            this.error();
             console.log(data.response)
         }
     }
 
     proceedOrder = (id) => {
+        this.setState({orderDetailEditLoader: true});
         const {gToken} = this.state;
         if(gToken){
             checkout(this.proceedCallback, id, gToken)
@@ -66,31 +113,36 @@ class AllocateOrder extends Component {
     }
 
     render() {
-        return(
-            <div className="container flex-row">
-                <div className="container-left">
+        if(this.state.showLoader){
+            return <Loader/>
+        }else {
+            return(
+                <div className="container flex-row">
                 {
-                    // this.state.showLoader && !this.props.companies
-                    // ? <Loader/>
-                    // : <AddVendor companies={this.props.companies}/>
+                    this.state.orderDetailEditLoader
+                    ? <FullScreenLoading />
+                    : null
                 }
-                    <AddVendor companies={this.props.companies} unproceedOrder = {this.props.unproceedOrder} />
-                    <AddProduct products={this.props.products} unproceedOrder = {this.props.unproceedOrder}/>
-                </div>
-                <div className="container-right">
-                    <div className="order-detail-container">
-                        <div className="order-detail" style={{overflowX:'auto'}}>
-                            <OrderDetail 
-                                Orders= {this.props.Orders} 
-                                proceedOrder={this.proceedOrder} 
-                                removeProduct={this.removeProduct} 
-                                companies={this.props.companies}
-                            />
+                    <div className="container-left">
+                        <AddVendor companies={this.props.companies} unproceedOrder = {this.props.unproceedOrder} />
+                        <AddProduct products={this.props.products} unproceedOrder = {this.props.unproceedOrder}/>
+                    </div>
+                    <div className="container-right">
+                        <div className="order-detail-container">
+                            <div className="order-detail" style={{overflowX:'auto'}}>
+                                <OrderDetail 
+                                    Orders= {this.props.Orders} 
+                                    proceedOrder={this.proceedOrder} 
+                                    removeProduct={this.removeProduct} 
+                                    companies={this.props.companies}
+                                    removeOrder={this.removeOrder}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        } 
     }
 }
 
@@ -123,6 +175,12 @@ function mapDispatchToProps(dispatch) {
         dispatchProceedOrder: (data) => {
             dispatch({
                 type: actionType.UPDATE_ORDER_STATUS,
+                value: data
+            })
+        },
+        dispatchRemoveOrder: (data) => {
+            dispatch({
+                type: actionType.REMOVE_UNPROCEED_ORDER,
                 value: data
             })
         }
