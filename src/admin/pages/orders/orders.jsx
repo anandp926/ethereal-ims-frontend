@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import {Tabs, Icon} from 'antd';
+import {Tabs, Icon, Modal} from 'antd';
 import AllocateOrder from './allocate_order/allocate_order';
 import OrderList from './order_list/order_list';
 import ChangeStatus from './change_status/change_status'
@@ -17,7 +17,22 @@ const TabPane = Tabs.TabPane;
 class Orders extends Component {
     state = {
         gToken: GetToken(),
-        showLoader: true
+        showOLoader: true,
+        showCLoader: true
+    }
+
+    success = () => {
+        Modal.success({
+            title: 'Successful',
+            content: 'Order status has been changed :).',
+        });
+    }
+
+    error = () => {
+        Modal.error({
+            title: 'Oops',
+            content: 'Something went wrong. Please try again later :(',
+        })
     }
 
     callback = (data) => {
@@ -34,8 +49,9 @@ class Orders extends Component {
             }else {
                 this.props.dispatchChangeOrderStatus(data.data)
             }
-            
+            this.success()
         }else {
+            this.error();
             console.log(data.response)
         }
     }
@@ -50,7 +66,7 @@ class Orders extends Component {
     companyCallback = (data) => {
         if(data.status === 200){
             this.props.getCompany(data.data);
-            this.setState({showLoader: false})
+            this.setState({showCLoader: false})
         }else {
             console.log(data.response);
         }
@@ -72,11 +88,11 @@ class Orders extends Component {
             unproceedOrder = this.props.orders.filter((orders) => orders.orderStatus.allocated === false);
         }
 
-        if(this.state.showLoader && !this.props.orders){
+        if(this.state.showOLoader && this.state.showCLoader && !this.props.orders && ! this.props.companies){
             return <Loader/>
         }else if(this.props.orders){
             return(
-                <Tabs defaultActiveKey="2" >
+                <Tabs defaultActiveKey="1" >
                     <TabPane tab={<span><Icon type="dashboard" />Dashboard</span>} key="1" >
                         Orders Dashboard
                     </TabPane>
@@ -87,7 +103,11 @@ class Orders extends Component {
                         <ChangeStatus Orders={this.props.orders} changeOrderStatus={this.changeOrderStatus} companies={this.props.companies}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="form" />Allocate Order</span>} key="4">
-                        <AllocateOrder Orders={this.props.orders} unproceedOrder= {unproceedOrder} companies={this.props.companies}/>
+                        <AllocateOrder 
+                            Orders={this.props.orders} 
+                            unproceedOrder= {unproceedOrder} 
+                            companies={this.props.companies}
+                        />
                     </TabPane>
                 </Tabs>
             )
