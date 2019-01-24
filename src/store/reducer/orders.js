@@ -12,6 +12,11 @@ const reducer = (state= {orders: []}, action) => {
                 ...state,
                 orders: state.orders.filter((order) => order._id !== action.value._id).concat([action.value])
             }
+        case actionType.REMOVE_UNPROCEED_ORDER:
+            return {
+                ...state,
+                orders: state.orders.filter((order) => order._id !== action.value._id)
+            }
         case actionType.UNPROCEED_ADD_PRODUCT:
             return Object.assign({}, state, {
                 orders: state.orders.map((order) => {
