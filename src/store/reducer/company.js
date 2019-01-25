@@ -14,6 +14,25 @@ const reducer = (state= {company: []}, action) => {
                     ...state.company.filter((comp) => comp._id !== action.value._id).concat([action.value])
                 ]
             }
+        case actionType.ADD_VENDOR_PRODUCTS:
+        return Object.assign({}, state, {
+            company: state.company.map((vendor) => {
+                if(vendor._id !== action.value._id){
+                    return vendor
+                }
+
+                var newMachine = action.value.products.filter(newMachine =>
+                    {
+                    return !vendor.products.some(machine => {
+                        return newMachine._id == machine._id;
+                    });
+                });
+                
+                return Object.assign({}, vendor, {
+                    products: vendor.products.concat(newMachine)
+                })
+            })
+        })
         default:
             return state
     }
