@@ -45,7 +45,8 @@ class Orders extends Component {
     changeStatusCallback = (data, status) => {
         if(data.status === 200){
             if(status === 'installed'){
-                this.props.dispatchChangeOrderStatus(data.data.updatedOrder) 
+                this.props.dispatchChangeOrderStatus(data.data.updatedOrder);
+                this.props.dispatchNewVendorData(data.data.newVendorData);
             }else {
                 this.props.dispatchChangeOrderStatus(data.data)
             }
@@ -139,6 +140,12 @@ function mapDispatchToProps (dispatch) {
         dispatchChangeOrderStatus: (data) => {
             dispatch({
                 type: actionType.UPDATE_ORDER_STATUS,
+                value: data
+            })
+        },
+        dispatchNewVendorData: (data) => {
+            dispatch({
+                type: actionType.ADD_VENDOR_PRODUCTS,
                 value: data
             })
         }
