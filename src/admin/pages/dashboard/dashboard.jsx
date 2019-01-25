@@ -1,0 +1,210 @@
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import Card from '../../../components/ui/card/card';
+import CardHeading from '../../../components/ui/card/card-heading/card-heading';
+import Divider from '../../../components/ui/divider/divider';
+import AnalogClock from './analog_watch/analog_watch';
+import FullScreenLoader from '../../../components/ui/fullscreen_loader/fullscreen_loader'
+import './dashboard.css'
+import { Tree, Icon } from 'antd';
+//
+import * as actionType from '../../../store/actions/action-type';
+import {getAllProduct} from '../../../services/apis/product_catalog';
+import {getOrders} from '../../../services/apis/orders'
+import {GetToken} from '../../../helpers/token';
+
+const TreeNode = Tree.TreeNode;
+
+class Dashboard extends Component {
+
+    state = {
+        gToken: GetToken(),
+        showPLoader: true,
+        showOLoader: true
+    }
+
+    productCallback = (data) => {
+        if(data.status === 200){
+            this.props.getProducts(data.data)
+            this.setState({showPLoader: false})
+        }else {
+            console.log(data.response);
+            this.setState({showPLoader: false})
+        }
+    }
+
+    callback = (data) => {
+        if(data.status === 200) {
+            this.props.dispatchOrders(data.data);
+            this.setState({showOLoader: false});
+        }else{
+            this.setState({showOLoader: false})
+        }
+    }
+
+    componentDidMount() {
+        const {gToken} = this.state
+        if(gToken){
+            getAllProduct(this.productCallback, gToken);
+            getOrders(this.callback, this.state.gToken);
+        }
+    }
+
+    render(){
+        var haloCount=0, haloSold=0, rayCount=0, raySold=0, pentagramCount=0, pentagramSold=0;
+        var alctCount=0, pkdCount=0, shpdCount=0, iCount=0;
+        if(this.props.products.length > 0) {
+            this.props.products.map((product) => {
+                if(product.name === 'Halo'){
+                    haloCount = product.count;
+                    haloSold = product.sold;
+                }else if(product.name === 'Pentagram'){
+                    pentagramCount = product.count;
+                    pentagramSold = product.sold;
+                }else if(product.name === 'Ray'){
+                    rayCount = product.count;
+                    raySold = product.sold
+                }
+            });
+        }
+        if(this.props.orders.length > 0) {
+            this.props.orders.map((order) => {
+                if(order.orderStatus.allocated && !order.orderStatus.packed && !order.orderStatus.shipped && !order.orderStatus.installed){
+                    alctCount++;
+                }else if(order.orderStatus.packed && order.orderStatus.packed && !order.orderStatus.shipped && !order.orderStatus.installed){
+                    pkdCount++;
+                }else if(order.orderStatus.shipped && order.orderStatus.packed && order.orderStatus.shipped && !order.orderStatus.installed){
+                    shpdCount++;
+                }else if(order.orderStatus.allocated && order.orderStatus.packed && order.orderStatus.shipped && order.orderStatus.installed){
+                    iCount++;
+                }
+            } );
+        }
+        return(
+            <div className="dashboard">
+            {
+                this.state.showOLoader && this.state.showPLoader
+                ? <FullScreenLoader/>
+                : null
+            }
+                <div className="dashboard-card-list">
+                    <div className="dashboard-card-item">
+                        <Card>
+                            <CardHeading title="Products" classValue="dashboard-card-heading"/>
+                            <Divider/>
+                            <div className="dashboard-inventory-detail">
+                                <Tree
+                                    showIcon
+                                    defaultExpandedKeys={['0-0']}
+                                    onSelect={this.onSelect}
+                                >
+                                    <TreeNode title={<b>Machines</b>} key="0-0">
+                                        <TreeNode 
+                                            icon={<img className="ray-icon" />} 
+                                            title={<span style={{color:'#0c3ff7'}}>Total ({haloCount+rayCount+pentagramCount+haloSold+raySold+pentagramSold})</span>} 
+                                            key="0-0-0-0" 
+                                        />
+                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${rayCount+raySold})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloCount+haloSold})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramCount+pentagramSold})`} key="0-0-0-3" />
+                                    </TreeNode>
+                                </Tree>
+                            </div>
+                        </Card>
+                    </div>
+                    <div className="dashboard-card-item">
+                        <Card>
+                            <CardHeading title="Available Products" classValue="dashboard-card-heading"/>
+                            <Divider/>
+                            <div className="dashboard-inventory-detail">
+                                <Tree
+                                    showIcon
+                                    defaultExpandedKeys={['0-0']}
+                                    onSelect={this.onSelect}
+                                >
+                                    <TreeNode title={<b>Available Machines</b>} key="0-0">
+                                        <TreeNode icon={<img className="ray-icon" />} title={<span style={{color:'#0c3ff7'}}>Total ({haloCount+rayCount+pentagramCount})</span>} key="0-0-0-0" />
+                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${rayCount})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloCount})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramCount})`} key="0-0-0-3" />
+                                    </TreeNode>
+                                </Tree>
+                            </div>
+                        </Card>
+                    </div>
+                    <div className="dashboard-card-item">
+                        <Card>
+                            <AnalogClock />
+                        </Card>
+                    </div>
+                    <div className="dashboard-card-item">
+                        <Card>
+                            <CardHeading title="Sold Products" classValue="dashboard-card-heading" />
+                            <Divider/>
+                            <div className="dashboard-inventory-detail">
+                                <Tree
+                                    showIcon
+                                    defaultExpandedKeys={['0-0']}
+                                    onSelect={this.onSelect}
+                                >
+                                    <TreeNode title={<b>Toatal Sold</b>} key="0-0">
+                                    <TreeNode icon={<img className="ray-icon" />} title={<span style={{color:'#0c3ff7'}}>Total ({haloSold+raySold+pentagramSold})</span>} key="0-0-0-0" />
+                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${raySold})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloSold})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramSold})`} key="0-0-0-3" />
+                                    </TreeNode>
+                                </Tree>
+                            </div>
+                        </Card>
+                    </div>
+                    <div className="dashboard-card-item">
+                        <Card>
+                            <CardHeading title="Orders" classValue="dashboard-card-heading"/>
+                            <Divider/>
+                            <div className="dashboard-inventory-detail">
+                                <Tree
+                                    showIcon
+                                    defaultExpandedKeys={['0-0']}
+                                    onSelect={this.onSelect}
+                                >
+                                    <TreeNode title={<b style={{color:'#0c3ff7'}}>Total Orders ({iCount+pkdCount+shpdCount+alctCount})</b>} key="0-0">
+                                        <TreeNode icon={<img className="ray-icon" />} title={`Installed (${iCount})`} key="0-0-0-0" />
+                                        <TreeNode icon={<img className="halo-icon" />} title={`Shipped (${shpdCount})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Packed (${pkdCount})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Allocated (${alctCount})`} key="0-0-0-3" />
+                                    </TreeNode>
+                                </Tree>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+function mapStateToProps (state) {
+    return{
+        orders: state.Orders.orders,
+        products: state.Products.products,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return{
+        getProducts: (data) => {
+            dispatch({
+                type: actionType.PRODUCTS,
+                value: data
+            })
+        },
+        dispatchOrders: (data) => {
+            dispatch({
+                type: actionType.ORDERS,
+                value: data
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
