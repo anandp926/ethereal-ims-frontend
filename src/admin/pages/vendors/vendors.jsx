@@ -6,7 +6,7 @@ import './vendors.css'
 //
 import * as actionType from '../../../store/actions/action-type';
 import getCompany from '../../../services/apis/get-company'
-import {getAllProduct} from '../../../services/apis/product_catalog';
+// import {getAllProduct} from '../../../services/apis/product_catalog';
 import { GetToken } from '../../../helpers/token'
 
 class Vendors extends Component {
@@ -14,7 +14,7 @@ class Vendors extends Component {
     state = {
         gToken: GetToken(),
         showLoader: true,
-        showPLoader: true
+        // showPLoader: true
     }
 
     callback = (data) => {
@@ -26,25 +26,25 @@ class Vendors extends Component {
         }
     }
 
-    productCallback = (data) => {
-        if(data.status === 200){
-            this.props.getProducts(data.data)
-            this.setState({showPLoader: false})
-        }else {
-            console.log(data.response)
-        }
-    }
+    // productCallback = (data) => {
+    //     if(data.status === 200){
+    //         this.props.getProducts(data.data)
+    //         this.setState({showPLoader: false})
+    //     }else {
+    //         console.log(data.response)
+    //     }
+    // }
 
     componentDidMount(){
         const {gToken} = this.state;
         if(gToken){
-            getAllProduct(this.productCallback, gToken);
+            // getAllProduct(this.productCallback, gToken);
             getCompany(this.callback, gToken)
         }
     }
 
     render(){
-        if(this.state.showLoader && this.state.showPLoader){
+        if(this.state.showLoader){
             return (
                 <div className="container">
                     <Loader/>
@@ -104,7 +104,7 @@ class Vendors extends Component {
                                             }
                                             <td className="text-right"><span>{haloCount}</span></td>
                                             <td className="text-right"><span>{pentagramCount}</span></td>
-                                            <td className="text-right"><span>{pentagramCount}</span></td>
+                                            <td className="text-right"><span>{rayCount}</span></td>
                                             </tr>
                                         )
                                     })
@@ -121,7 +121,7 @@ class Vendors extends Component {
 function mapStateToProps (state) {
     return{
         companies: state.Company.company,
-        products: state.Products.products,
+        // products: state.Products.products,
     }
 }
 
@@ -133,12 +133,12 @@ function mapDispatchToProps (dispatch) {
                 value: data
             })
         },
-        getProducts: (data) => {
-            dispatch({
-                type: actionType.PRODUCTS,
-                value: data
-            })
-        }
+        // getProducts: (data) => {
+        //     dispatch({
+        //         type: actionType.PRODUCTS,
+        //         value: data
+        //     })
+        // }
     }
 }
 
