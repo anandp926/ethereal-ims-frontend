@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import Card from '../../../components/ui/card/card';
 import CardHeading from '../../../components/ui/card/card-heading/card-heading';
 import Divider from '../../../components/ui/divider/divider';
-import AnalogClock from './analog_watch/analog_watch';
+import AnalogClock from '../../../components/ui/analog_watch/analog_watch';
 import FullScreenLoader from '../../../components/ui/fullscreen_loader/fullscreen_loader'
-import './dashboard.css'
+import '../../../common_css/dashboard.css'
 import { Tree, Icon } from 'antd';
 //
 import * as actionType from '../../../store/actions/action-type';
