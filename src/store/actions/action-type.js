@@ -9,6 +9,7 @@ export const USERS = 'USERS';
 export const ADD_USER = 'ADD_USER';
 export const USER_PROFILE = 'USER_PROFILE';
 export const APPROVE_USER = 'APPROVE_USER';
+export const USER_COMPANY = 'USER_COMPANY';
 export const PRODUCTS = 'PRODUCTS';
 export const ADD_PRODUCTS = 'ADD_PRODUCTS';
 export const ADD_VERSION = 'ADD_VERSION';
