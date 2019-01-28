@@ -65,12 +65,12 @@ const SiderNav = (props) => {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
-                    <Menu.Item key="/shopping">
+                    {/* <Menu.Item key="/shopping">
                         <Link to="/shopping">
                         <Icon type="shopping-cart" />
                         <span className="nav-text">Shopping</span>
                         </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item key="/faqs">
                         <Link to="/faqs">
                         <Icon type="read" />
