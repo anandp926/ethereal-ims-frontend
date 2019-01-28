@@ -35,12 +35,6 @@ const SiderNav = (props) => {
                             <span className="nav-text">Create New</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="/issues/pending">
-                            <Link to="/issues/pending">
-                            <Icon type="warning" />
-                            <span className="nav-text">Pending</span>
-                            </Link>
-                        </Menu.Item>
                     </SubMenu>
                     <SubMenu
                     key='sub2'
