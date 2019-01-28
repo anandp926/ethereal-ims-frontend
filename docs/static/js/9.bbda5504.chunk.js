@@ -1,0 +1,2 @@
+webpackJsonp([9],{1170:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i=n(0),r=n.n(i),u=function(){return r.a.createElement("div",null,"Hi! I'm Certificate and I'll put weight on your personality.")};t.default=u}});
+//# sourceMappingURL=9.bbda5504.chunk.js.map
