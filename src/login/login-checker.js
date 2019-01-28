@@ -47,7 +47,7 @@ class LoginChecker extends Component {
       }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {currentURL, isLoggedIn, history, setRedirectUrl } = this.props;
 
         if (!isLoggedIn) {
@@ -57,7 +57,7 @@ class LoginChecker extends Component {
           history.push('/');
         }else if(isLoggedIn && this.state.gToken){
           setRedirectUrl(currentURL);
-          refreshToken(this.callback, {token:this.state.gToken}, this.state.gToken);
+          await refreshToken(this.callback, {token:this.state.gToken}, this.state.gToken);
         }
     }
 
