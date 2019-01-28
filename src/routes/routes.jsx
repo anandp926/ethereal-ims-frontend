@@ -35,10 +35,10 @@ const UserAddNew = Loadable({
     loading: Loading
 });
 
-const UserPendingIssues = Loadable({
-    loader: () => import('../distributor/pages/issues/pending/pending-issue'),
-    loading: Loading
-});
+// const UserPendingIssues = Loadable({
+//     loader: () => import('../distributor/pages/issues/pending/pending-issue'),
+//     loading: Loading
+// });
 
 // const UserPendingIssueChat = Loadable({
 //     loader: () => import('../distributor/pages/issues/pending/pending-issue-chat/pending-issue-chat'),
@@ -93,7 +93,7 @@ const UserFaqs = Loadable({
 // user component use suffix User
 
 const AdminDashboard = Loadable({
-    loader: () => import('../admin/index'),
+    loader: () => import('../admin/pages/dashboard/dashboard'),
     loading: Loading
 });
 
@@ -151,8 +151,8 @@ class MainRouting extends Component {
                             ?
                             <Switch>
                                 <Route path="/issues/new" exact component={UserAddNew} />
-                                <Route path="/issues/pending" exact component={UserPendingIssues} />
-                                {/* <Route path="/issues/pending/:id" exact component={UserPendingIssueChat} />
+                                {/* <Route path="/issues/pending" exact component={UserPendingIssues} />
+                                <Route path="/issues/pending/:id" exact component={UserPendingIssueChat} />
                                 <Route path="/issues/resolved" exact component={UserResolvedIssue} />
                                 <Route path="/issues/resolved/:id" exact component={UserResolvedIssueChat} /> */}
                                 <Route path="/resources/videos" exact component={Videos} />
