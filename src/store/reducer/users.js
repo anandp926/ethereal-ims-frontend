@@ -1,6 +1,6 @@
 import * as actionType from "../actions/action-type";
 
-const reducer = (state= {users: [], profile: []}, action) => {
+const reducer = (state= {users: [], profile: [], company: []}, action) => {
     switch(action.type){
         case actionType.USERS:
             return {
@@ -30,6 +30,11 @@ const reducer = (state= {users: [], profile: []}, action) => {
             return {
                 ...state,
                 profile: action.value
+            }
+        case actionType.USER_COMPANY:
+            return {
+                ...state,
+                company: action.value
             }
         default:
             return state
