@@ -75,15 +75,15 @@ const Manuals = Loadable({
     loading: Loading
 })
 
-const UserShopping = Loadable({
-    loader: () => import('../distributor/pages/shopping/shopping'),
-    loading: Loading
-});
+// const UserShopping = Loadable({
+//     loader: () => import('../distributor/pages/shopping/shopping'),
+//     loading: Loading
+// });
 
-const UserShoppingDetail = Loadable({
-    loader: () => import('../distributor/pages/shopping/shopping-detail/shopping-detail'),
-    loading: Loading
-});
+// const UserShoppingDetail = Loadable({
+//     loader: () => import('../distributor/pages/shopping/shopping-detail/shopping-detail'),
+//     loading: Loading
+// });
 
 const UserFaqs = Loadable({
     loader: () => import('../distributor/pages/faq/faq'),
@@ -159,8 +159,8 @@ class MainRouting extends Component {
                                 <Route path="/resources/certificate" exact component={Certificate} />
                                 <Route path="/resources/aggrement" exact component={Agreement} />
                                 <Route path="/resources/manuals" exact component={Manuals} />
-                                <Route path="/shopping" exact component={UserShopping} />
-                                <Route path="/shopping/details/:id" component={UserShoppingDetail} />
+                                {/* <Route path="/shopping" exact component={UserShopping} />
+                                <Route path="/shopping/details/:id" component={UserShoppingDetail} /> */}
                                 <Route path="/faqs" exact component={UserFaqs} />
                                 <Route path="/dashboard" exact component={UserDashboard} />
                             </Switch>
