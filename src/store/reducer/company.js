@@ -24,7 +24,7 @@ const reducer = (state= {company: []}, action) => {
                 var newMachine = action.value.products.filter(newMachine =>
                     {
                     return !vendor.products.some(machine => {
-                        return newMachine._id == machine._id;
+                        return newMachine._id === machine._id;
                     });
                 });
                 

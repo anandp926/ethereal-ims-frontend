@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Heading from '../../../../components/form/heading/heading'
-import { Tabs, Icon } from 'antd';
 import './agreement.css'
-
-const TabPane = Tabs.TabPane;
-
 
 class Agreement extends Component {
     render(){

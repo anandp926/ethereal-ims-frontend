@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Divider } from 'antd';
+import { Table } from 'antd';
 
 const approved = (props) => {
 

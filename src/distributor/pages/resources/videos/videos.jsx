@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Heading from '../../../../components/form/heading/heading'
 import {videoLink} from './data'
 import './videos.css'
 

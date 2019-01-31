@@ -100,13 +100,13 @@ class Dashboard extends Component {
                                 >
                                     <TreeNode title={<b>Machines</b>} key="0-0">
                                         <TreeNode 
-                                            icon={<img className="ray-icon" />} 
+                                            icon={<img className="ray-icon" alt=""/>} 
                                             title={<span style={{color:'#0c3ff7'}}>Total ({haloCount+rayCount+pentagramCount+haloSold+raySold+pentagramSold})</span>} 
                                             key="0-0-0-0" 
                                         />
-                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${rayCount+raySold})`} key="0-0-0-1" />
-                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloCount+haloSold})`} key="0-0-0-2" />
-                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramCount+pentagramSold})`} key="0-0-0-3" />
+                                        <TreeNode icon={<img className="ray-icon" alt=""/>} title={`Ray (${rayCount+raySold})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="halo-icon" alt=""/>} title={`Halo (${haloCount+haloSold})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" alt=""/>} title={`Pentagram (${pentagramCount+pentagramSold})`} key="0-0-0-3" />
                                     </TreeNode>
                                 </Tree>
                             </div>
@@ -123,10 +123,10 @@ class Dashboard extends Component {
                                     onSelect={this.onSelect}
                                 >
                                     <TreeNode title={<b>Available Machines</b>} key="0-0">
-                                        <TreeNode icon={<img className="ray-icon" />} title={<span style={{color:'#0c3ff7'}}>Total ({haloCount+rayCount+pentagramCount})</span>} key="0-0-0-0" />
-                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${rayCount})`} key="0-0-0-1" />
-                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloCount})`} key="0-0-0-2" />
-                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramCount})`} key="0-0-0-3" />
+                                        <TreeNode icon={<img className="ray-icon" alt=""/>} title={<span style={{color:'#0c3ff7'}}>Total ({haloCount+rayCount+pentagramCount})</span>} key="0-0-0-0" />
+                                        <TreeNode icon={<img className="ray-icon" alt=""/>} title={`Ray (${rayCount})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="halo-icon" alt=""/>} title={`Halo (${haloCount})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" alt=""/>} title={`Pentagram (${pentagramCount})`} key="0-0-0-3" />
                                     </TreeNode>
                                 </Tree>
                             </div>
@@ -148,10 +148,10 @@ class Dashboard extends Component {
                                     onSelect={this.onSelect}
                                 >
                                     <TreeNode title={<b>Toatal Sold</b>} key="0-0">
-                                    <TreeNode icon={<img className="ray-icon" />} title={<span style={{color:'#0c3ff7'}}>Total ({haloSold+raySold+pentagramSold})</span>} key="0-0-0-0" />
-                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${raySold})`} key="0-0-0-1" />
-                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloSold})`} key="0-0-0-2" />
-                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramSold})`} key="0-0-0-3" />
+                                        <TreeNode icon={<img className="ray-icon" alt=""/>} title={<span style={{color:'#0c3ff7'}}>Total ({haloSold+raySold+pentagramSold})</span>} key="0-0-0-0" />
+                                        <TreeNode icon={<img className="ray-icon" alt=""/>} title={`Ray (${raySold})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="halo-icon" alt=""/>} title={`Halo (${haloSold})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="pentagram-icon" alt=""/>} title={`Pentagram (${pentagramSold})`} key="0-0-0-3" />
                                     </TreeNode>
                                 </Tree>
                             </div>
@@ -168,10 +168,10 @@ class Dashboard extends Component {
                                     onSelect={this.onSelect}
                                 >
                                     <TreeNode title={<b style={{color:'#0c3ff7'}}>Total Orders ({iCount+pkdCount+shpdCount+alctCount})</b>} key="0-0">
-                                        <TreeNode icon={<img className="ray-icon" />} title={`Installed (${iCount})`} key="0-0-0-0" />
-                                        <TreeNode icon={<img className="halo-icon" />} title={`Shipped (${shpdCount})`} key="0-0-0-1" />
-                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Packed (${pkdCount})`} key="0-0-0-2" />
-                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Allocated (${alctCount})`} key="0-0-0-3" />
+                                        <TreeNode icon={<Icon type="smile" />} title={`Installed (${iCount})`} key="0-0-0-0" />
+                                        <TreeNode icon={<Icon type="car" />} title={`Shipped (${shpdCount})`} key="0-0-0-1" />
+                                        <TreeNode icon={<Icon type="gift" />} title={`Packed (${pkdCount})`} key="0-0-0-2" />
+                                        <TreeNode icon={<Icon type="check-circle" />} title={`Allocated (${alctCount})`} key="0-0-0-3" />
                                     </TreeNode>
                                 </Tree>
                             </div>

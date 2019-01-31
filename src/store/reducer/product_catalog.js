@@ -22,7 +22,7 @@ const reducer = (state= {products: []}, action) => {
                     var newDetail = action.value.details.filter(detail =>
                          {
                         return !product.details.some(proDetail => {
-                            return detail._id == proDetail._id;
+                            return detail._id === proDetail._id;
                         });
                     });
                     
@@ -41,7 +41,7 @@ const reducer = (state= {products: []}, action) => {
                     var newMachine = action.value.productList.filter(newMachine =>
                         {
                         return !product.productList.some(machine => {
-                            return newMachine._id == machine._id;
+                            return newMachine._id === machine._id;
                         });
                     });
                     
@@ -93,7 +93,7 @@ const reducer = (state= {products: []}, action) => {
             })
         default:
             return state
-    };
+    }
 };
 
 export default reducer

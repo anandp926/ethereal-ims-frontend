@@ -114,14 +114,11 @@ label {
   flex-direction: row
 }
 
-.issue-form {
-  width: 40%
-}
-
 .issue-form-button {
   padding: 1rem
 }
 
+.issue-form,
 .issue-list {
   width: 40%;
 }
@@ -152,7 +149,7 @@ span {
   justify-content: center;
   align-items: center;
   float: right;
-  border: 1px solid bla
+  border: 1px solid black
 }
 
 /* loader */
@@ -182,39 +179,18 @@ span {
 
 @media only screen and (max-width : 768px){
   
-  .login-box {
-    width: 100%
-  }
-   
+  .login-box,
   .container-right,
-  .container-left {
+  .container-left,
+  .issue-list,
+  .chat-right,
+  .chat-left,
+  .login-group,
+  .issue-form {
       width: 100%
   }
 
-  .login-button-group {
-    flex-direction: column
-  }
-
-  .login-group {
-    width: 100%;
-  }
-
-  .issue-form {
-    width: 100%
-  }
-
-  .chat-left {
-    width: 100%
-  }
-
-  .chat-right {
-    width: 100%
-  }
-  
-  .issue-list {
-    width: 100%;
-  }
-
+  .login-button-group,
   .flex-row {
     flex-direction: column
   }
@@ -227,18 +203,12 @@ span {
     width: 70%
   }
 
-  .issue-form {
-    width: 50%
-  }
-
-  .chat-left {
-    width: 100%
-  }
-
+  .chat-left,
   .chat-right {
     width: 100%
   }
 
+  .issue-form,
   .issue-list {
     width: 50%;
 }

@@ -5,7 +5,7 @@ import CardHeading from '../../../components/ui/card/card-heading/card-heading'
 import Divider from '../../../components/ui/divider/divider'
 import AnalogClock from '../../../components/ui/analog_watch/analog_watch';
 import '../../../common_css/dashboard.css'
-import { Tree, Icon } from 'antd';
+import { Tree } from 'antd';
 //
 import {getUserCompany} from '../../../services/apis/user';
 import * as actionType from '../../../store/actions/action-type';
@@ -65,9 +65,9 @@ class Dashboard extends Component {
                                     onSelect={this.onSelect}
                                 >
                                     <TreeNode title={<b>Machines</b>} key="0-0">
-                                        <TreeNode icon={<img className="ray-icon" />} title={`Ray (${rayCount})`} key="0-0-0-0" />
-                                        <TreeNode icon={<img className="halo-icon" />} title={`Halo (${haloCount})`} key="0-0-0-1" />
-                                        <TreeNode icon={<img className="pentagram-icon" />} title={`Pentagram (${pentagramCount})`} key="0-0-0-2" />
+                                        <TreeNode icon={<img className="ray-icon" alt=""/>} title={`Ray (${rayCount})`} key="0-0-0-0" />
+                                        <TreeNode icon={<img className="halo-icon" alt=""/>} title={`Halo (${haloCount})`} key="0-0-0-1" />
+                                        <TreeNode icon={<img className="pentagram-icon" alt=""/>} title={`Pentagram (${pentagramCount})`} key="0-0-0-2" />
                                     </TreeNode>
                                 </Tree>
                             </div>

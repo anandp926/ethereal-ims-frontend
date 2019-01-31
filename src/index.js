@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter, HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {Provider} from 'react-redux'

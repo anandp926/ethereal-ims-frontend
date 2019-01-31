@@ -193,7 +193,7 @@ class IssueForm extends Component {
                     </div>
                 </div>
             )
-        }<Loader/>
+        }
     }
 }
 

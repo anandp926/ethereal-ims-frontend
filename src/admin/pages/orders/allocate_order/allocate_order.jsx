@@ -5,7 +5,6 @@ import AddVendor from './add_vendor/add_vendor';
 import AddProduct from './add_product/add_product';
 import OrderDetail from './order_detail/order_detail';
 import Loader from '../../../../components/ui/loader/loader';
-import ErrorBox from '../../../../components/form/error-box/error-box';
 import FullScreenLoading from '../../../../components/ui/fullscreen_loader/fullscreen_loader'
 //
 import {GetToken} from '../../../../helpers/token';
