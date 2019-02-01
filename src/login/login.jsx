@@ -129,7 +129,7 @@ class Login extends Component{
                                             <Button isType='primary' htmlTypes='submit' isBlock={true}>LOGIN</Button>
                                         </div>
                                         <div className="login-group">
-                                            <Button isType='danger' isBlock={true} onClick={this.openModal}>FORGOTE PASSWORD</Button>
+                                            <Button isType='danger' isBlock={true} onClick={this.openModal}>FORGOT PASSWORD</Button>
                                         </div>
                                     </div>
                                 </Form>
