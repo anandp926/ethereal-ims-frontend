@@ -7,3 +7,11 @@ export const getUserCompany = (callback, token) => {
         callback(res)
     }).catch(err => callback(err))
 }
+
+// forgot password
+export const forgotPassword = (callback, data) => {
+    axios.patch('/user/forgot-password', data)
+    .then((res) => {
+        callback(res)
+    }).catch((err) => callback(err))
+}
