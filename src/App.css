@@ -43,13 +43,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 70vh
 }
 
 .login-box {
   width: 50%;
   padding: 5%;
-  background: #fff
+  background: #fff;
+  opacity: 0.8;
+  border-radius: 10px
 }
 
 .form-control {
