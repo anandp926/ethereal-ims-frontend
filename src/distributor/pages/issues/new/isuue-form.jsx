@@ -1,3 +1,8 @@
+/*
+ * __author__ = 'Anand Singh <sanand926@gmail.com>'
+ * __copyright__ = 'Copyright (C) 2019 Ethereal Machines Pvt. Ltd. All rights reserved'
+ */
+
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {Modal} from 'antd'
@@ -14,7 +19,6 @@ import * as actionType from '../../../../store/actions/action-type'
 import {GetToken} from '../../../../helpers/token';
 import {createIssue} from '../../../../services/apis/issues';
 import {getUserCompany} from '../../../../services/apis/user';
-
 
 class IssueForm extends Component {
 

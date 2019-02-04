@@ -1,3 +1,8 @@
+/*
+ * __author__ = 'Anand Singh <sanand926@gmail.com>'
+ * __copyright__ = 'Copyright (C) 2019 Ethereal Machines Pvt. Ltd. All rights reserved'
+ */
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../../../components/ui/card/card'
@@ -8,7 +13,6 @@ import PentagramImage from './assets/pentagram/pentagram.png'
 import Button from '../../../components/form/button/button'
 import InputType from '../../../components/form/form-controls/input'
 import Modal from '../../../components/layout/modal/modal'
-
 
 class Shopping extends Component {
 
