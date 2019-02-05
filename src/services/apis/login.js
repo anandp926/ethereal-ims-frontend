@@ -5,11 +5,16 @@
 
 import axios from '../axios/axios'
 
-const login = (callback, data) => {
+export const login = (callback, data) => {
     axios.post('/user/login', data)
         .then((res) => {
             callback(res);
         }).catch((err) => callback(err));
 };
 
-export default login
+export const tokenVerify = (callback, token) => {
+    axios.post(`/user/token-verify`, null, {headers:{"x-auth": token}})
+        .then((res) => {
+            callback(res)
+        }).catch((err) => callback(err))
+}
