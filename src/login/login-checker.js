@@ -13,9 +13,9 @@ import Header from '../components/header/header'
 import Layouts from '../components/layout/layout'
 import ContentLayout from '../components/layout/content-layout'
 import Sider from '../side-nav/sider-nav'
-import refreshToken from '../services/apis/refresh-token'
+import {tokenVerify} from '../services/apis/login'
 import deleteToken from '../services/apis/logout'
-import {GetToken, SetToken, DeleteToken} from '../helpers/token'
+import {GetToken, DeleteToken} from '../helpers/token'
 
 class LoginChecker extends Component {
       state = {
@@ -26,10 +26,9 @@ class LoginChecker extends Component {
 
     callback = (data) => {
       if(data.status === 200){
-        SetToken(data.data.nToken, 5);
-        this.setState({gToken: data.data.nToken});
-        this.props.basic(data.data.user);
+        this.props.basic(data.data);
       }else if(data.response){
+        this.props.history.push('/')
         console.log(data.response)
       }
     }
@@ -52,7 +51,7 @@ class LoginChecker extends Component {
       }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const {currentURL, isLoggedIn, history, setRedirectUrl } = this.props;
 
         if (!isLoggedIn) {
@@ -62,7 +61,7 @@ class LoginChecker extends Component {
           history.push('/');
         }else if(isLoggedIn && this.state.gToken){
           setRedirectUrl(currentURL);
-          await refreshToken(this.callback, {token:this.state.gToken}, this.state.gToken);
+          tokenVerify(this.callback, this.state.gToken);
         }
     }
 
