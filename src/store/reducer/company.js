@@ -5,12 +5,17 @@
 
 import * as actionType from '../actions/action-type'
 
-const reducer = (state= {company: []}, action) => {
+const reducer = (state= {company: [], firstRun: true}, action) => {
     switch(action.type) {
         case actionType.COMPANY:
             return {
                 ...state,
                 company: action.value
+            }
+        case actionType.UPDATE_FIRST_RUN_COMPANY:
+            return {
+                ...state,
+                firstRun: action.value
             }
         case actionType.ADD_COMPANY:
             return {
