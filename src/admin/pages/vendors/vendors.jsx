@@ -18,14 +18,15 @@ class Vendors extends Component {
 
     state = {
         gToken: GetToken(),
-        showLoader: true,
+        showLoader: this.props.firstRunCompanies? true : false,
         // showPLoader: true
     }
 
     callback = (data) => {
         if(data.status === 200){
             this.props.vendorDispatch(data.data);
-            this.setState({showLoader: false})
+            this.setState({showLoader: false});
+            this.props.dispatchUpdateFirstRunCompanies(false);
         }else{
             console.log(data.response)
         }
@@ -44,7 +45,9 @@ class Vendors extends Component {
         const {gToken} = this.state;
         if(gToken){
             // getAllProduct(this.productCallback, gToken);
-            getCompany(this.callback, gToken)
+            if(this.props.firstRunCompanies){
+                getCompany(this.companyCallback, gToken);
+            }
         }
     }
 
@@ -126,6 +129,7 @@ class Vendors extends Component {
 function mapStateToProps (state) {
     return{
         companies: state.Company.company,
+        firstRunCompanies: state.Company.firstRun,
         // products: state.Products.products,
     }
 }
@@ -143,7 +147,13 @@ function mapDispatchToProps (dispatch) {
         //         type: actionType.PRODUCTS,
         //         value: data
         //     })
-        // }
+        // },
+        dispatchUpdateFirstRunCompanies: (data) => {
+            dispatch({
+                type: actionType.UPDATE_FIRST_RUN_COMPANY,
+                value: data
+            })
+        }
     }
 }
 

@@ -22,8 +22,8 @@ const TabPane = Tabs.TabPane;
 class Orders extends Component {
     state = {
         gToken: GetToken(),
-        showOLoader: true,
-        showCLoader: true
+        showOLoader: this.props.firstRunOrders ? true : false,
+        showCLoader: this.props.firstRunCompanies? true : false
     }
 
     success = () => {
@@ -44,6 +44,7 @@ class Orders extends Component {
         if(data.status === 200) {
             this.props.dispatchOrders(data.data);
             this.setState({showLoader: false});
+            this.props.dispatchUpdateFirstRunOrders(false);
         }
     }
 
@@ -72,7 +73,8 @@ class Orders extends Component {
     companyCallback = (data) => {
         if(data.status === 200){
             this.props.getCompany(data.data);
-            this.setState({showCLoader: false})
+            this.setState({showCLoader: false});
+            this.props.dispatchUpdateFirstRunCompanies(false);
         }else {
             console.log(data.response);
         }
@@ -81,8 +83,12 @@ class Orders extends Component {
     componentDidMount () {
         const {gToken} = this.state;
         if(gToken){
-            getOrders(this.callback, this.state.gToken);
-            getCompanylist(this.companyCallback, gToken);
+            if(this.props.firstRunOrders){
+                getOrders(this.callback, this.state.gToken);
+            }
+            if(this.props.firstRunCompanies){
+                getCompanylist(this.companyCallback, gToken);
+            }
         }
     }
 
@@ -123,7 +129,9 @@ class Orders extends Component {
 
 function mapStateToProps (state) {
     return {
+        firstRunOrders: state.Orders.firstRun,
         orders: state.Orders.orders,
+        firstRunCompanies: state.Company.firstRun,
         companies: state.Company.company,
     }
 }
@@ -151,6 +159,18 @@ function mapDispatchToProps (dispatch) {
         dispatchNewVendorData: (data) => {
             dispatch({
                 type: actionType.ADD_VENDOR_PRODUCTS,
+                value: data
+            })
+        },
+        dispatchUpdateFirstRunOrders: (data) => {
+            dispatch({
+                type: actionType.UPDATE_FIRST_RUN_ORDERS,
+                value: data
+            })
+        },
+        dispatchUpdateFirstRunCompanies: (data) => {
+            dispatch({
+                type: actionType.UPDATE_FIRST_RUN_COMPANY,
                 value: data
             })
         }
