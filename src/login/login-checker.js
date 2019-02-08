@@ -51,7 +51,7 @@ class LoginChecker extends Component {
       }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {currentURL, isLoggedIn, history, setRedirectUrl } = this.props;
 
         if (!isLoggedIn) {
